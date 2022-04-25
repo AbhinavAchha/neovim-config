@@ -66,9 +66,4 @@ return packer.startup(function(use)
 	use({ "vuki656/package-info.nvim", config = require("package_info_config") })
 	use({ "norcalli/nvim-colorizer.lua", config = require("colorizer_config") })
 	use({ "rmagatti/goto-preview", config = require("goto_preview_config") })
-	use({
-		"ray-x/navigator.lua",
-		requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-		config = "navigator_config",
-	})
 end)
