@@ -10,7 +10,6 @@ vim.g.mapleader = " "
 nmap("0", "^")
 nmap("<leader>w", ":w<cr>")
 nmap("'", "`")
-nmap("<leader>gg", ":GitGutterAll<cr>")
 nmap("<leader>e", ":e%<cr>")
 nmap("<leader>A", "ggVG")
 nmap("<leader>Q", ":qa!<cr>")
