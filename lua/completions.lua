@@ -116,7 +116,7 @@ cmp.setup({
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
 		{ name = "path" },
-		{ name = "cmp_git" },
+		{ name = "git" },
 		{ name = "buffer", keyword_length = 5 },
 	},
 	confirm_opts = {
