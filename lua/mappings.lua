@@ -38,6 +38,7 @@ nmap("<leader>`", ":q!<cr>")
 nmap("qq", ":q<cr>")
 nmap("j", "gj")
 nmap("k", "gk")
+nmap("<leader>c", ":cclose<cr>")
 
 nmap("<leader>1", "1gt")
 nmap("<leader>2", "2gt")
