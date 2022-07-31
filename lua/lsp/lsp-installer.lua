@@ -12,20 +12,17 @@ lsp_installer.on_server_ready(function(server)
 	if server.name == "jsonls" then
 		local custom_opts = require("lsp.settings.jsonls")
 		opts = vim.tbl_deep_extend("force", custom_opts, opts)
-	end
-
-	if server.name == "sumneko_lua" then
+	elseif server.name == "sumneko_lua" then
 		local custom_opts = require("lsp.settings.sumneko_lua")
 		opts = vim.tbl_deep_extend("force", custom_opts, opts)
-	end
-
-	if server.name == "pyright" then
+	elseif server.name == "pyright" then
 		local custom_opts = require("lsp.settings.pyright")
 		opts = vim.tbl_deep_extend("force", custom_opts, opts)
-	end
-
-	if server.name == "tsserver" then
+	elseif server.name == "tsserver" then
 		local custom_opts = require("lsp.settings.tsserver")
+		opts = vim.tbl_deep_extend("force", custom_opts, opts)
+	elseif server.name == "gopls" then
+		local custom_opts = require("lsp.settings.gopls")
 		opts = vim.tbl_deep_extend("force", custom_opts, opts)
 	end
 
