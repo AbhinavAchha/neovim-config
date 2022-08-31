@@ -54,6 +54,7 @@ local options = {
 	splitright = true,
 	whichwrap = "<,>,h,l",
 	mousemodel = "popup",
+	background = "dark",
 }
 
 for k, v in pairs(options) do
@@ -65,6 +66,7 @@ vim.cmd([[set iskeyword +=-]])
 vim.g.highlightedyank_highlight_duration = 200.
 vim.cmd([[let g:glow_binary_path = expand("$HOME/.bin")]])
 
-vim.cmd([[colorscheme rigel]])
+-- vim.cmd([[colorscheme rigel]])
 -- vim.cmd([[colorscheme duskfox]])
 -- vim.cmd([[colorscheme kanagawa]])
+vim.cmd([[colorscheme dracula]])

@@ -32,6 +32,7 @@ return packer.startup(function(use)
 	use("MunifTanjim/nui.nvim")
 	use("EdenEast/nightfox.nvim")
 	use("wakatime/vim-wakatime")
+	use("dracula/vim")
 
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer")
