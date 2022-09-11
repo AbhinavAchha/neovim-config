@@ -24,10 +24,8 @@ nmap("<leader>.", ":cd ..<CR>")
 map("n", "<leader>s", ":%s/<c-r><c-w>//<Left>", {})
 map("n", "<leader>m", ":set mouse=", { noremap = true })
 
--- nmap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 map("n", "<leader>s", ":%s/<c-r><c-w>/<C-r><C-w>/gI<Left><Left><Left>", {})
 nmap("gG", "g<C-g>")
-nmap("<leader>T", ":TSEnableAll highlight<cr>")
 nmap("<C-h>", ":tabp<cr>")
 nmap("<C-l>", ":tabN<cr>")
 nmap("-", ":tabm -1<cr>")
