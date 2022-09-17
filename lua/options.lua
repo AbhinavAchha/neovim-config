@@ -18,7 +18,6 @@ local options = {
 	signcolumn = "yes",
 	report = 0,
 	autowrite = true,
-	mouse = "a",
 	foldenable = false,
 	backup = false,
 	expandtab = true,
@@ -53,7 +52,6 @@ local options = {
 	splitbelow = true,
 	splitright = true,
 	whichwrap = "<,>,h,l",
-	mousemodel = "popup",
 	background = "dark",
 }
 

@@ -5,6 +5,8 @@ end
 
 local gps = require("nvim-gps")
 
+local kernel = " " .. string.match(io.popen("uname -r"):read("l"), "%d+.%d+.%d+")
+
 gps.setup({
 	icons = {
 		["class-name"] = " ",
@@ -21,7 +23,7 @@ local hide_in_width = function()
 end
 
 local function linux()
-	return " " .. string.match(io.popen("uname -r"):read("l"), "%d+.%d+.%d+")
+	return kernel
 end
 
 local diagnostics = {
@@ -43,8 +45,8 @@ local diff = {
 
 local filetype = {
 	"filetype",
-	-- icons_enabled = false,
-	-- icon = nil,
+	icons_enabled = true,
+	icon = " ",
 }
 
 local branch = {
@@ -61,7 +63,7 @@ local location = {
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = "catppuccin",
+		theme = "dracula",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
@@ -95,7 +97,7 @@ lualine.setup({
 		lualine_a = {},
 		lualine_b = {},
 		lualine_c = { "filename" },
-		lualine_x = { "location" },
+		lualine_x = { location },
 		lualine_y = {},
 		lualine_z = {},
 	},
