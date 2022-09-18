@@ -71,7 +71,7 @@ require("formatter").setup({
 				return {
 					exe = "golines",
 					-- args = { "-w", vim.api.nvim_buf_get_name(0) },
-					args = { "-m 80" },
+					--[[ args = { "-m 80" }, ]]
 					stdin = true,
 				}
 			end,

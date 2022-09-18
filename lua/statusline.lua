@@ -20,13 +20,9 @@ local hide_in_width = function()
 	return vim.fn.winwidth(0) > 80
 end
 
--- local function linux()
--- 	local os = io.popen("uname -o")
--- 	local ver = io.popen("uname -r")
--- 	os = os:read("l")
--- 	ver = ver:read("l")
--- 	return os .. " " .. ver
--- end
+local function linux()
+	return " " .. string.match(io.popen("uname -r"):read("l"), "%d+.%d+.%d+")
+end
 
 local diagnostics = {
 	"diagnostics",
@@ -65,7 +61,7 @@ local location = {
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = "molokai",
+		theme = "catppuccin",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
@@ -92,8 +88,8 @@ lualine.setup({
 			{ gps.get_location, cond = gps.is_available },
 		},
 		lualine_x = { diff, filetype },
-		lualine_y = { location },
-		lualine_z = { "filesize", "tabs" },
+		lualine_y = { location, linux },
+		lualine_z = { "filesize" },
 	},
 	inactive_sections = {
 		lualine_a = {},

@@ -26,6 +26,7 @@ map("n", "<leader>m", ":set mouse=", { noremap = true })
 
 map("n", "<leader>s", ":%s/<c-r><c-w>/<C-r><C-w>/gI<Left><Left><Left>", {})
 nmap("gG", "g<C-g>")
+nmap("<leader>t", ":TSContextToggle<cr>")
 nmap("<C-h>", ":tabp<cr>")
 nmap("<C-l>", ":tabN<cr>")
 nmap("-", ":tabm -1<cr>")
