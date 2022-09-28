@@ -10,5 +10,6 @@ return {
 				linting = false,
 			},
 		},
+		document_formatting = false,
 	},
 }
