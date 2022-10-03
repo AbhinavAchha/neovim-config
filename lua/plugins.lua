@@ -31,6 +31,7 @@ return packer.startup(function(use)
 	use("MunifTanjim/nui.nvim")
 	use("wakatime/vim-wakatime")
 	use("dracula/vim")
+	use("ray-x/guihua.lua") -- recommanded if need floating window support
 
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer")
@@ -65,4 +66,5 @@ return packer.startup(function(use)
 	use({ "norcalli/nvim-colorizer.lua", config = require("colorizer_config") })
 	use({ "rmagatti/goto-preview", config = require("goto_preview_config") })
 	use({ "nvim-treesitter/nvim-treesitter-context", config = require("treesitter_context") })
+	use({ "ray-x/go.nvim", config = require("go_config") })
 end)

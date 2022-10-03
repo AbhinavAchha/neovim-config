@@ -66,19 +66,17 @@ require("formatter").setup({
 				}
 			end,
 		},
-		go = {
-			function()
-				return {
-					exe = "golines",
-					-- args = { "-w", vim.api.nvim_buf_get_name(0) },
-					--[[ args = { "-m 80" }, ]]
-					stdin = true,
-				}
-			end,
-		},
+		--[[ go = { ]]
+		--[[ 	function() ]]
+		--[[ 		return { ]]
+		--[[ 			exe = "golines", ]]
+		--[[ 			stdin = true, ]]
+		--[[ 		} ]]
+		--[[ 	end, ]]
+		--[[ }, ]]
 	},
 })
 
 vim.cmd([[
-autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py,*.go FormatWrite
+autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py FormatWrite
 ]])
