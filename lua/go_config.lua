@@ -87,3 +87,8 @@ require("go").setup({
 	--  Do not enable this if you already added the path, that will duplicate the entries
 })
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+
+local opts = { noremap = true }
+local map = vim.api.nvim_set_keymap
+
+map("n", "<leader>gc", ":GoCmt<CR>", opts)
