@@ -1,5 +1,5 @@
 local opts = { noremap = true }
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
 --[[ map("n", "<leader>ga", ":Git add %", opts) ]]
 --[[ map("n", "<leader>gA", ":Git add -A", opts) ]]

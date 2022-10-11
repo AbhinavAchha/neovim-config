@@ -1,5 +1,5 @@
 local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
 map("n", "<leader>ff", ":Telescope fd<cr>", opts)
 map("n", "<leader>fb", ":Telescope file_browser<cr>", opts)

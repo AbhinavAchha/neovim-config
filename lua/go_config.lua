@@ -1,3 +1,8 @@
+-- return if file type is not go
+--[[ if vim.bo.filetype ~= "go" then ]]
+--[[ 	return ]]
+--[[ end ]]
+
 require("go").setup({
 	disable_defaults = false, -- true|false when true set false to all boolean settings and replace all table
 	-- settings with {}
@@ -83,12 +88,12 @@ require("go").setup({
 
 	trouble = false, -- true: use trouble to open quickfix
 	test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
-	luasnip = false, -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
+	luasnip = true, -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
 	--  Do not enable this if you already added the path, that will duplicate the entries
 })
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
 
 local opts = { noremap = true }
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
 map("n", "<leader>gc", ":GoCmt<CR>", opts)

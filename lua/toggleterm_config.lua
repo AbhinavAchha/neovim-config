@@ -27,7 +27,7 @@ toggleterm.setup({
 })
 
 local opts = { noremap = true }
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 map("n", "<leader>tp", ":lua _PYTHON_TOGGLE()<cr>", opts)
 map("n", "<leader>tn", ":lua _NODE_TOGGLE()<cr>", opts)
 map("n", "<leader>th", ":lua _HTOP_TOGGLE()<cr>", opts)

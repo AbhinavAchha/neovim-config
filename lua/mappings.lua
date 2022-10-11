@@ -1,5 +1,5 @@
 local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local function nmap(key, cmd)
 	map("n", key, cmd, opts)
 end
