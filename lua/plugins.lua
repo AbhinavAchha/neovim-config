@@ -34,7 +34,9 @@ return packer.startup(function(use)
 	use("ray-x/guihua.lua") -- recommanded if need floating window support
 	use("almo7aya/openingh.nvim")
 	use("folke/tokyonight.nvim")
+	use("itchyny/vim-cursorword")
 
+	use("williamboman/nvim-lsp-installer")
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
@@ -45,7 +47,6 @@ return packer.startup(function(use)
 	use("David-Kunz/cmp-npm")
 	use({ "petertriho/cmp-git", config = require("completion_git") })
 	use("neovim/nvim-lspconfig")
-	use("williamboman/nvim-lsp-installer")
 
 	use({ "akinsho/toggleterm.nvim", config = require("toggleterm_config") })
 	use({ "crispgm/nvim-tabline", config = require("tabline").setup({}) })
