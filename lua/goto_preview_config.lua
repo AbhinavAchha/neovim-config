@@ -1,5 +1,3 @@
--- local telescope = require("telescope")
-
 require("goto-preview").setup({
 	width = 120, -- Width of the floating window
 	height = 15, -- Height of the floating window
@@ -19,3 +17,5 @@ require("goto-preview").setup({
 	bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
 })
 vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
+
+vim.keymap.set("n", "gr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { noremap = true })

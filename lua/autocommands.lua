@@ -2,6 +2,8 @@ local cmd = vim.cmd
 
 cmd([[autocmd FileType text setlocal spell]])
 
+-- https://neovim.io/doc/user/lua.html#lua-highlight
+cmd([[au TextYankPost * silent! lua vim.highlight.on_yank()]])
 -------------------------------
 -- " => Python section
 -------------------------------

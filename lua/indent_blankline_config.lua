@@ -8,6 +8,8 @@ require("indent_blankline").setup({
 		"IndentBlanklineIndent5",
 		"IndentBlanklineIndent6",
 	},
+	show_current_context = true,
+	show_current_context_start = true,
 })
 
 vim.cmd([[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]])

@@ -10,6 +10,7 @@ local javascript = {
 }
 
 require("formatter").setup({
+	logging = false,
 	filetype = {
 		javascript = javascript,
 		html = javascript,
@@ -66,14 +67,11 @@ require("formatter").setup({
 				}
 			end,
 		},
-		--[[ go = { ]]
-		--[[ 	function() ]]
-		--[[ 		return { ]]
-		--[[ 			exe = "golines", ]]
-		--[[ 			stdin = true, ]]
-		--[[ 		} ]]
-		--[[ 	end, ]]
-		--[[ }, ]]
+		["*"] = {
+			-- "formatter.filetypes.any" defines default configurations for any
+			-- filetype
+			require("formatter.filetypes.any").remove_trailing_whitespace,
+		},
 	},
 })
 

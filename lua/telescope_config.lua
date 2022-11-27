@@ -11,3 +11,5 @@ map("n", "<leader>fm", ":Telescope man_pages<cr>", opts)
 map("n", "<leader>/", ":Telescope search_history<cr>", opts)
 map("n", "<leader>:", ":Telescope command_history<cr>", opts)
 map("n", "<leader>k", ":Telescope keymaps<cr>", opts)
+
+require("telescope").load_extension("fzf")
