@@ -6,9 +6,14 @@ require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = { "sumneko_lua", "jsonls", "pyright", "tsserver", "gopls" },
 })
+local navic = require("nvim-navic")
+local on_attach = function(client, bufnr)
+	navic.attach(client, bufnr)
+	handlers.on_attach(client, bufnr)
+end
 
 lspconfig.sumneko_lua.setup({
-	on_attach = handlers.on_attach,
+	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 	settings = {
 		Lua = {
@@ -26,7 +31,7 @@ lspconfig.sumneko_lua.setup({
 })
 
 lspconfig.gopls.setup({
-	on_attach = handlers.on_attach,
+	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 	settings = {
 		gopls = {
@@ -40,14 +45,14 @@ lspconfig.gopls.setup({
 })
 
 lspconfig.jsonls.setup({
-	on_attach = handlers.on_attach,
+	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 	settings = require("jsonls").settings,
 	setup = require("jsonls").setup,
 })
 
 lspconfig.tsserver.setup({
-	on_attach = handlers.on_attach,
+	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 	settings = {
 		typescript = {
@@ -65,7 +70,7 @@ lspconfig.tsserver.setup({
 })
 
 lspconfig.pyright.setup({
-	on_attach = handlers.on_attach,
+	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 	settings = {
 		python = {
@@ -75,4 +80,49 @@ lspconfig.pyright.setup({
 			},
 		},
 	},
+})
+
+lspconfig.html.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.cssls.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.bashls.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.dockerls.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.yamlls.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.vimls.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.rust_analyzer.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.sqlls.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.clangd.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
 })

@@ -3,20 +3,10 @@ if not status_ok then
 	return
 end
 
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 
 local kernel = " " .. string.match(io.popen("uname -r"):read("l"), "%d+.%d+.%d+")
-
-gps.setup({
-	icons = {
-		["class-name"] = " ",
-		["function-name"] = " ",
-		["method-name"] = " ",
-		["container-name"] = "⛶ ",
-		["tag-name"] = "炙",
-	},
-	separator = " > ",
-})
+navic.setup({})
 
 local hide_in_width = function()
 	return vim.fn.winwidth(0) > 80
@@ -87,7 +77,7 @@ lualine.setup({
 			},
 		},
 		lualine_c = {
-			{ gps.get_location, cond = gps.is_available },
+			{ navic.get_location, cond = navic.is_available },
 		},
 		lualine_x = { diff, filetype },
 		lualine_y = { location, linux },
