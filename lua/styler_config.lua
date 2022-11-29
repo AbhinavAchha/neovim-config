@@ -1,6 +1,6 @@
 require("styler").setup({
 	themes = {
-		fugitive = { colorscheme = "noctis", background = "dark" },
+		fugitive = { colorscheme = "noctis" },
 		lua = { colorscheme = "noctis", background = "dark" },
 	},
 })

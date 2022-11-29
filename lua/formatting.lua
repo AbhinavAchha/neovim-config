@@ -1,5 +1,4 @@
 local javascript = {
-	-- prettier
 	function()
 		return {
 			exe = "prettier",
@@ -31,10 +30,9 @@ require("formatter").setup({
 			end,
 		},
 		python = {
-			-- Configuration for psf/black
 			function()
 				return {
-					exe = "black", -- this should be available on your $PATH
+					exe = "black",
 					args = { "-" },
 					stdin = true,
 				}
@@ -58,7 +56,6 @@ require("formatter").setup({
 			end,
 		},
 		sh = {
-			-- Shell Script Formatter
 			function()
 				return {
 					exe = "shfmt",
@@ -75,6 +72,4 @@ require("formatter").setup({
 	},
 })
 
-vim.cmd([[
-autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py FormatWrite
-]])
+vim.cmd([[ autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py FormatWrite ]])

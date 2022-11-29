@@ -8,7 +8,9 @@ require("mason-lspconfig").setup({
 })
 local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
-	navic.attach(client, bufnr)
+	if client.server_capabilities.documentSymbolProvider then
+		navic.attach(client, bufnr)
+	end
 	handlers.on_attach(client, bufnr)
 end
 
@@ -123,6 +125,11 @@ lspconfig.sqlls.setup({
 })
 
 lspconfig.clangd.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.eslint.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 })
