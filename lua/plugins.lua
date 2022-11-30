@@ -32,6 +32,7 @@ return packer.startup(function(use)
 	use("folke/tokyonight.nvim")
 	use("itchyny/vim-cursorword")
 	use("jghauser/mkdir.nvim")
+	use("eandrju/cellular-automaton.nvim")
 
 	use("neovim/nvim-lspconfig")
 	use("hrsh7th/nvim-cmp")
