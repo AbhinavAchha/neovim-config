@@ -153,16 +153,21 @@ local schemas = {
 		fileMatch = { "resume.json" },
 		url = "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	},
+	{
+		description = "JSON schema for the JSON Feed format",
+		fileMatch = {
+			"feed.json",
+		},
+		url = "https://json.schemastore.org/feed.json",
+	},
+	{
+		description = "Packer template JSON configuration",
+		fileMatch = {
+			"packer.json",
+		},
+		url = "https://json.schemastore.org/packer.json",
+	},
 }
-
--- local function extend(tab1, tab2)
--- 	for _, value in ipairs(tab2) do
--- 		table.insert(tab1, value)
--- 	end
--- 	return tab1
--- end
-
--- local extended_schemas = extend(schemas, default_schemas)
 
 local opts = {
 	settings = {

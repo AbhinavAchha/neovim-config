@@ -18,4 +18,4 @@ require("goto-preview").setup({
 })
 vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
 
-vim.keymap.set("n", "gr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>j", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { noremap = true })

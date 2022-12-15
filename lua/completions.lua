@@ -1,12 +1,5 @@
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-	return
-end
-
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-	return
-end
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -117,7 +110,8 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "path" },
 		{ name = "git" },
-		{ name = "buffer", keyword_length = 5 },
+		{ name = "buffer", keyword_length = 3 },
+		{ name = "nvim_lsp_signature_help" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,

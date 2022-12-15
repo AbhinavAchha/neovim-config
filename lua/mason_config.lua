@@ -109,11 +109,6 @@ lspconfig.yamlls.setup({
 	capabilities = handlers.capabilities,
 })
 
-lspconfig.vimls.setup({
-	on_attach = on_attach,
-	capabilities = handlers.capabilities,
-})
-
 lspconfig.rust_analyzer.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
