@@ -54,6 +54,8 @@ return packer.startup(function(use)
 	use("nvim-telescope/telescope.nvim")
 	use("tpope/vim-fugitive")
 	use("windwp/nvim-autopairs")
+	use("lewis6991/hover.nvim")
+	use("lewis6991/impatient.nvim")
 
 	use("neovim/nvim-lspconfig")
 	use("hrsh7th/nvim-cmp")
