@@ -1,6 +1,3 @@
 require("mappings")
-require("autocommands")
-require("completions")
-require("git-keymaps")
 require("options")
 require("plugins")
