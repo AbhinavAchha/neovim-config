@@ -128,3 +128,15 @@ lspconfig.eslint.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 })
+
+lspconfig.tailwindcss.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+	settings = {
+		tailwindCSS = {
+			experimental = {
+				configFile = "tailwind.config.ts",
+			},
+		},
+	},
+})

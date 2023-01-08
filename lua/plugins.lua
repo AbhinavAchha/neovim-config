@@ -50,6 +50,7 @@ return packer.startup(function(use)
 	use("windwp/nvim-autopairs")
 	use("lewis6991/hover.nvim")
 	use("lewis6991/impatient.nvim")
+	use("windwp/nvim-spectre")
 
 	use("neovim/nvim-lspconfig")
 	use("hrsh7th/nvim-cmp")

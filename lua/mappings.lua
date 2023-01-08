@@ -21,6 +21,9 @@ nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
 nmap("<leader>.", ":cd ..<CR>")
 
+nmap("<leader>y", '"+y')
+map("v", "<leader>y", '"+y')
+
 map("n", "<leader>s", ":%s/<c-r><c-w>//<Left>", {})
 map("n", "<leader>m", ":set mouse=", { noremap = true })
 
