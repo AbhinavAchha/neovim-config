@@ -1,11 +1,12 @@
 local handlers = require("handlers")
 local lspconfig = require("lspconfig")
-
 handlers.setup()
+
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = { "sumneko_lua", "jsonls", "pyright", "tsserver", "gopls" },
 })
+
 local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
@@ -56,19 +57,6 @@ lspconfig.jsonls.setup({
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
-	settings = {
-		typescript = {
-			validate = {
-				linting = false,
-			},
-		},
-		javascript = {
-			validate = {
-				linting = false,
-			},
-		},
-		document_formatting = false,
-	},
 })
 
 lspconfig.pyright.setup({

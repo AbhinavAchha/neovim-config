@@ -12,7 +12,7 @@ M.setup = function()
 		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 	end
 
-	local config = {
+	vim.diagnostic.config({
 		virtual_text = true,
 		signs = {
 			active = signs,
@@ -28,9 +28,7 @@ M.setup = function()
 			header = "",
 			prefix = "",
 		},
-	}
-
-	vim.diagnostic.config(config)
+	})
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 		border = "rounded",
@@ -66,34 +64,29 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true }
-	local map = vim.api.nvim_buf_set_keymap
-	map(bufnr, "n", "gD", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", opts)
-	map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	map(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	map(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	map(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	map(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	-- map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	map(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	map(bufnr, "n", "<leader>o", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-	map(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	map(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	map(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+	local opts = { noremap = true, silent = true, buffer = bufnr }
+	local map = vim.keymap.set
+	map("n", "gD", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", opts)
+	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	map("n", "<leader>o", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	map("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+	map("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
 end
 
 M.on_attach = function(client, bufnr)
+	-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
+	-- lsp_highlight_document(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status_ok then
-	return
-end
-
-M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 return M

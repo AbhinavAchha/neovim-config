@@ -53,7 +53,6 @@ local options = {
 	splitright = true,
 	whichwrap = "<,>,h,l",
 	background = "dark",
-	updatetime = 50,
 }
 
 for k, v in pairs(options) do

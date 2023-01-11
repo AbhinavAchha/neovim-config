@@ -89,15 +89,15 @@ _G.packer_plugins = {
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ["cellular-automaton.nvim"] = {
-    loaded = true,
-    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/cellular-automaton.nvim",
-    url = "https://github.com/eandrju/cellular-automaton.nvim"
-  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-calc"] = {
+    loaded = true,
+    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/cmp-calc",
+    url = "https://github.com/hrsh7th/cmp-calc"
   },
   ["cmp-cmdline"] = {
     loaded = true,
@@ -108,11 +108,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/cmp-git",
     url = "https://github.com/petertriho/cmp-git"
-  },
-  ["cmp-npm"] = {
-    loaded = true,
-    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/cmp-npm",
-    url = "https://github.com/David-Kunz/cmp-npm"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
@@ -184,11 +179,6 @@ _G.packer_plugins = {
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/guihua.lua",
     url = "https://github.com/ray-x/guihua.lua"
   },
-  ["hover.nvim"] = {
-    loaded = true,
-    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/hover.nvim",
-    url = "https://github.com/lewis6991/hover.nvim"
-  },
   ["impatient.nvim"] = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/impatient.nvim",
@@ -204,11 +194,6 @@ _G.packer_plugins = {
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
-  ["lush.nvim"] = {
-    loaded = true,
-    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/lush.nvim",
-    url = "https://github.com/rktjmp/lush.nvim"
-  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -223,11 +208,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/mkdir.nvim",
     url = "https://github.com/jghauser/mkdir.nvim"
-  },
-  ["noctis.nvim"] = {
-    loaded = true,
-    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/noctis.nvim",
-    url = "https://github.com/kartikp10/noctis.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -258,6 +238,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/nvim-navic",
     url = "https://github.com/SmiteshP/nvim-navic"
+  },
+  ["nvim-spectre"] = {
+    loaded = true,
+    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/nvim-spectre",
+    url = "https://github.com/windwp/nvim-spectre"
   },
   ["nvim-surround"] = {
     loaded = true,
