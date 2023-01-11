@@ -118,7 +118,10 @@ lspconfig.eslint.setup({
 })
 
 lspconfig.tailwindcss.setup({
-	on_attach = on_attach,
+	on_attach = function(client, bufnr)
+		require("tailwindcss-colors").buf_attach(bufnr)
+		on_attach(client, bufnr)
+	end,
 	capabilities = handlers.capabilities,
 	settings = {
 		tailwindCSS = {

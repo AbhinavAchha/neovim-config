@@ -67,6 +67,14 @@ return packer.startup(function(use)
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use({ "numirias/semshi", run = ":UpdateRemotePlugins" })
 	use({ "mg979/vim-visual-multi", branch = "master" })
+	use({
+		"themaxmarchuk/tailwindcss-colors.nvim",
+		-- load only on require("tailwindcss-colors")
+		config = function()
+			-- pass config options here (or nothing to use defaults)
+			require("tailwindcss-colors").setup()
+		end,
+	})
 
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("nvim-treesitter/nvim-treesitter-context")
