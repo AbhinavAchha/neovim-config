@@ -179,11 +179,6 @@ _G.packer_plugins = {
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/guihua.lua",
     url = "https://github.com/ray-x/guihua.lua"
   },
-  ["impatient.nvim"] = {
-    loaded = true,
-    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/impatient.nvim",
-    url = "https://github.com/lewis6991/impatient.nvim"
-  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
@@ -329,6 +324,12 @@ _G.packer_plugins = {
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/semshi",
     url = "https://github.com/numirias/semshi"
   },
+  ["tailwindcss-colors.nvim"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\23tailwindcss-colors\frequire\0" },
+    loaded = true,
+    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/tailwindcss-colors.nvim",
+    url = "https://github.com/themaxmarchuk/tailwindcss-colors.nvim"
+  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
@@ -382,6 +383,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: tailwindcss-colors.nvim
+time([[Config for tailwindcss-colors.nvim]], true)
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\23tailwindcss-colors\frequire\0", "config", "tailwindcss-colors.nvim")
+time([[Config for tailwindcss-colors.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

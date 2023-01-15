@@ -1,18 +1,18 @@
 local handlers = require("handlers")
 local lspconfig = require("lspconfig")
-handlers.setup()
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "jsonls", "pyright", "tsserver", "gopls" },
+	ensure_installed = { "sumneko_lua", "jsonls", "pyright", "tsserver", "gopls", "eslint", "gopls" },
 })
+handlers.setup()
 
 local navic = require("nvim-navic")
-local on_attach = function(client, bufnr)
+local function on_attach(client, bufnr)
+	handlers.on_attach(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
 	end
-	handlers.on_attach(client, bufnr)
 end
 
 lspconfig.sumneko_lua.setup({
@@ -57,6 +57,13 @@ lspconfig.jsonls.setup({
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
+	settings = {
+		typescript = {
+			tsserver = {
+				useSeparateSyntaxServer = false,
+			},
+		},
+	},
 })
 
 lspconfig.pyright.setup({
@@ -112,11 +119,6 @@ lspconfig.clangd.setup({
 	capabilities = handlers.capabilities,
 })
 
-lspconfig.eslint.setup({
-	on_attach = on_attach,
-	capabilities = handlers.capabilities,
-})
-
 lspconfig.tailwindcss.setup({
 	on_attach = function(client, bufnr)
 		require("tailwindcss-colors").buf_attach(bufnr)
@@ -124,10 +126,23 @@ lspconfig.tailwindcss.setup({
 	end,
 	capabilities = handlers.capabilities,
 	settings = {
-		tailwindCSS = {
-			experimental = {
-				configFile = "tailwind.config.ts",
-			},
+		tailwindCss = {
+			classAttributes = { "class", "className", "classes" },
 		},
 	},
 })
+
+lspconfig.eslint.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
+	settings = {
+		eslint = {
+			codeActionsOnSave = {
+				mode = "problems",
+			},
+			packageManager = "pnpm",
+		},
+	},
+})
+
+require("completions")

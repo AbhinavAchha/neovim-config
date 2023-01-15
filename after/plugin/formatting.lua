@@ -72,4 +72,6 @@ require("formatter").setup({
 	},
 })
 
-vim.cmd([[ autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py FormatWrite ]])
+vim.cmd(
+	[[ autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py,*.json FormatWrite ]]
+)

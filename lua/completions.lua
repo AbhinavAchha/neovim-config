@@ -100,11 +100,12 @@ cmp.setup({
 		-- }),
 	},
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
+		-- fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
 			-- Kind icons
-			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+			-- vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+			vim_item.kind = " " .. (kind_icons[vim_item.kind] or "?") .. " "
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[LUA]",
@@ -113,10 +114,16 @@ cmp.setup({
 				path = "[FILE]",
 				nvim_git = "[GIT]",
 			})[entry.source.name]
+
+			-- local item = entry:get_completion_item()
+			--
+			-- if item.detail then
+			-- 	vim_item.kind = item.detail .. " " .. vim_item.kind
+			-- end
 			return vim_item
 		end,
 	},
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
@@ -125,7 +132,7 @@ cmp.setup({
 		{ name = "buffer", keyword_length = 3 },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "calc" },
-	},
+	}),
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
@@ -134,11 +141,17 @@ cmp.setup({
 		documentation = {
 			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 		},
+		completion = {
+			border = "double",
+			winhighlight = "NormalFloat:NormalFloat,FloatBorder:NormalFloat,Normal:Pmenu,NormalNC:Pmenu,CursorLine:PmenuSel,StatusLine:NormalFloat,StatusLineNC:NormalFloat",
+			side_padding = 1,
+			-- col_offset = -5,
+		},
 	},
 	experimental = {
 		ghost_text = false,
 	},
-	view = {
-		entries = "native",
-	},
+	-- view = {
+	-- 	entries = "native",
+	-- },
 })

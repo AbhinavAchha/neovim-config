@@ -47,7 +47,6 @@ return packer.startup(function(use)
 	use("nvim-telescope/telescope.nvim")
 	use("tpope/vim-fugitive")
 	use("windwp/nvim-autopairs")
-	use("lewis6991/impatient.nvim")
 	use("windwp/nvim-spectre")
 
 	use("williamboman/mason.nvim")
