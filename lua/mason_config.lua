@@ -6,6 +6,7 @@ require("mason-lspconfig").setup({
 	ensure_installed = { "sumneko_lua", "jsonls", "pyright", "tsserver", "gopls", "eslint", "gopls" },
 })
 handlers.setup()
+require("completions")
 
 local navic = require("nvim-navic")
 local function on_attach(client, bufnr)
@@ -145,4 +146,12 @@ lspconfig.eslint.setup({
 	},
 })
 
-require("completions")
+-- Setup the LSP server to attach when you edit an sg:// buffer
+require("sg").setup({
+	-- Pass your own custom attach function
+	--    If you do not pass your own attach function, then the following maps are provide:
+	--        - gd -> goto definition
+	--        - gr -> goto references
+	on_attach = on_attach,
+})
+vim.cmd([[nnoremap <space>sg <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>]])

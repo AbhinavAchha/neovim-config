@@ -83,7 +83,7 @@ M.on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	client.server_capabilities.documentFormattingProvider = true
 	lsp_keymaps(bufnr)
-	-- lsp_highlight_document(client)
+	lsp_highlight_document(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

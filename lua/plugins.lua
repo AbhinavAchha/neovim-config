@@ -48,6 +48,7 @@ return packer.startup(function(use)
 	use("tpope/vim-fugitive")
 	use("windwp/nvim-autopairs")
 	use("windwp/nvim-spectre")
+	use({ "tjdevries/sg.nvim", run = "cargo build --workspace" })
 
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
