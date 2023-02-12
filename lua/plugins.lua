@@ -82,4 +82,12 @@ return packer.startup(function(use)
 	use("nvim-treesitter/playground")
 	use("p00f/nvim-ts-rainbow")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
+
+	use({
+		"projekt0n/github-nvim-theme",
+		branch = "0.0.x",
+		config = function()
+			require("github-theme").setup()
+		end,
+	})
 end)

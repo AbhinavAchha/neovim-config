@@ -3,7 +3,24 @@ local lspconfig = require("lspconfig")
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "jsonls", "pyright", "tsserver", "gopls", "eslint", "gopls" },
+	ensure_installed = {
+		"sumneko_lua",
+		"jsonls",
+		"pyright",
+		"tsserver",
+		"gopls",
+		"eslint",
+		"gopls",
+		"clangd",
+		"rust_analyzer",
+		"tailwindcss",
+		"sqlls",
+		"cssls",
+		"bashls",
+		"dockerls",
+		"yamlls",
+		"html",
+	},
 })
 handlers.setup()
 require("completions")
@@ -16,7 +33,7 @@ local function on_attach(client, bufnr)
 	end
 end
 
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 	settings = {
@@ -58,13 +75,6 @@ lspconfig.jsonls.setup({
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
-	settings = {
-		typescript = {
-			tsserver = {
-				useSeparateSyntaxServer = false,
-			},
-		},
-	},
 })
 
 lspconfig.pyright.setup({
@@ -136,14 +146,6 @@ lspconfig.tailwindcss.setup({
 lspconfig.eslint.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
-	settings = {
-		eslint = {
-			codeActionsOnSave = {
-				mode = "problems",
-			},
-			packageManager = "pnpm",
-		},
-	},
 })
 
 -- Setup the LSP server to attach when you edit an sg:// buffer
