@@ -28,6 +28,7 @@ local map = vim.keymap.set
 map("n", "<leader>tp", ":lua _PYTHON_TOGGLE()<cr>", opts)
 map("n", "<leader>tn", ":lua _NODE_TOGGLE()<cr>", opts)
 map("n", "<leader>th", ":lua _HTOP_TOGGLE()<cr>", opts)
+map("n", "<leader>tg", ":lua _GO_TOGGLE()<cr>", opts)
 
 function _G.set_terminal_keymaps()
 	local bmap = vim.api.nvim_buf_set_keymap
@@ -38,20 +39,18 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local Terminal = require("toggleterm.terminal").Terminal
 
-local node = Terminal:new({ cmd = "node", hidden = true })
-
 function _NODE_TOGGLE()
-	node:toggle()
+	Terminal:new({ cmd = "node", hidden = true }).toggle()
 end
-
-local htop = Terminal:new({ cmd = "htop", hidden = true })
 
 function _HTOP_TOGGLE()
-	htop:toggle()
+	Terminal:new({ cmd = "htop", hidden = true }).toggle()
 end
 
-local python = Terminal:new({ cmd = "python", hidden = true })
-
 function _PYTHON_TOGGLE()
-	python:toggle()
+	Terminal:new({ cmd = "python", hidden = true }).toggle()
+end
+
+function _GO_TOGGLE()
+	Terminal:new({ cmd = "gomacro", hidden = true }):toggle()
 end

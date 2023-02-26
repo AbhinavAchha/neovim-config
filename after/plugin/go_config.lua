@@ -87,7 +87,7 @@ require("go").setup({
 	-- float term recommend if you use richgo/ginkgo with terminal color
 
 	trouble = false, -- true: use trouble to open quickfix
-	test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
+	test_efm = true, -- errorfomat for quickfix, default mix mode, set to true will be efm only
 	luasnip = true, -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
 	--  Do not enable this if you already added the path, that will duplicate the entries
 })

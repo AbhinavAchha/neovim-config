@@ -68,7 +68,7 @@ vim.cmd([[let g:glow_binary_path = expand("$HOME/.bin")]])
 -- vim.cmd([[colorscheme kanagawa]])
 -- vim.cmd([[colorscheme dracula]])
 
-vim.cmd([[colorscheme github_dark_default]])
+vim.cmd([[colorscheme github_dark]])
 
 vim.g.highlightedyank_highlight_duration = 200
 -- disable netrw at the very start of your init.lua (strongly advised)

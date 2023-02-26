@@ -1,16 +1,9 @@
-local status_ok, lualine = pcall(require, "lualine")
-if not status_ok then
-	return
-end
+local lualine = require("lualine")
 
 local navic = require("nvim-navic")
 
 local kernel = " " .. string.match(io.popen("uname -r"):read("l"), "%d+.%d+.%d+")
 navic.setup({})
-
-local hide_in_width = function()
-	return vim.fn.winwidth(0) > 80
-end
 
 local function linux()
 	return kernel
@@ -30,7 +23,9 @@ local diff = {
 	"diff",
 	colored = false,
 	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-	cond = hide_in_width,
+	cond = function()
+		return vim.fn.winwidth(0) > 80
+	end,
 }
 
 local filetype = {
@@ -53,7 +48,7 @@ local location = {
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = "dracula",
+		theme = "github_dark_default",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
