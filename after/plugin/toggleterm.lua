@@ -40,15 +40,15 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 local Terminal = require("toggleterm.terminal").Terminal
 
 function _NODE_TOGGLE()
-	Terminal:new({ cmd = "node", hidden = true }).toggle()
+	Terminal:new({ cmd = "node", hidden = true }):toggle()
 end
 
 function _HTOP_TOGGLE()
-	Terminal:new({ cmd = "htop", hidden = true }).toggle()
+	Terminal:new({ cmd = "htop", hidden = true }):toggle()
 end
 
 function _PYTHON_TOGGLE()
-	Terminal:new({ cmd = "python", hidden = true }).toggle()
+	Terminal:new({ cmd = "python", hidden = true }):toggle()
 end
 
 function _GO_TOGGLE()

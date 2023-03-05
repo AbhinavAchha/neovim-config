@@ -4,7 +4,7 @@ local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"sumneko_lua",
+		"lua_ls",
 		"jsonls",
 		"pyright",
 		"tsserver",
@@ -143,10 +143,10 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
-lspconfig.eslint.setup({
-	on_attach = on_attach,
-	capabilities = handlers.capabilities,
-})
+-- lspconfig.eslint.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = handlers.capabilities,
+-- })
 
 -- Setup the LSP server to attach when you edit an sg:// buffer
 require("sg").setup({
