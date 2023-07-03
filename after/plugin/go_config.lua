@@ -94,6 +94,6 @@ require("go").setup({
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
 
 local opts = { noremap = true }
-local map = vim.keymap.set
 
-map("n", "<leader>gc", ":GoCmt<CR>", opts)
+vim.keymap.set("n", "<leader>gc", ":GoCmt<CR>", opts)
+vim.keymap.set("n", "<leader>ge", ":GoIfErr<CR>", opts)

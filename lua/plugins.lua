@@ -33,7 +33,6 @@ return packer.startup(function(use)
 	use("rmagatti/goto-preview")
 	use("ray-x/go.nvim")
 	use("jinh0/eyeliner.nvim")
-	use("Pocco81/AbbrevMan.nvim")
 	use("akinsho/toggleterm.nvim")
 	use("crispgm/nvim-tabline")
 	use("ethanholz/nvim-lastplace")
@@ -48,6 +47,7 @@ return packer.startup(function(use)
 	use("tpope/vim-fugitive")
 	use("windwp/nvim-autopairs")
 	use("windwp/nvim-spectre")
+	use("themaxmarchuk/tailwindcss-colors.nvim")
 	use({ "tjdevries/sg.nvim", run = "cargo build --workspace" })
 
 	use("williamboman/mason.nvim")
@@ -67,27 +67,17 @@ return packer.startup(function(use)
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use({ "numirias/semshi", run = ":UpdateRemotePlugins" })
 	use({ "mg979/vim-visual-multi", branch = "master" })
-	use({
-		"themaxmarchuk/tailwindcss-colors.nvim",
-		-- load only on require("tailwindcss-colors")
-		config = function()
-			-- pass config options here (or nothing to use defaults)
-			require("tailwindcss-colors").setup()
-		end,
-	})
 
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("nvim-treesitter/nvim-treesitter-context")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("nvim-treesitter/playground")
-	use("p00f/nvim-ts-rainbow")
+	use("HiPhish/nvim-ts-rainbow2")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 
 	use({
 		"projekt0n/github-nvim-theme",
 		branch = "0.0.x",
-		config = function()
-			require("github-theme").setup()
-		end,
+		config = require("github-theme").setup,
 	})
 end)

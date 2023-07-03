@@ -16,6 +16,9 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		extended_mode = true,
 		max_file_lines = nil,
+		query = "rainbow-parens",
+		-- Highlight the entire buffer all at once
+		strategy = require("ts-rainbow").strategy.global,
 		-- colors = {},
 		-- termcolors = {},
 	},

@@ -10,7 +10,6 @@ require("mason-lspconfig").setup({
 		"tsserver",
 		"gopls",
 		"eslint",
-		"gopls",
 		"clangd",
 		"rust_analyzer",
 		"tailwindcss",
@@ -20,6 +19,7 @@ require("mason-lspconfig").setup({
 		"dockerls",
 		"yamlls",
 		"html",
+		"golangci_lint_ls",
 	},
 })
 handlers.setup()
@@ -62,7 +62,24 @@ lspconfig.gopls.setup({
 			staticcheck = true,
 			gofumpt = true,
 		},
+		codelenses = {
+			generate = true,
+			gc_details = true,
+			test = true,
+			tidy = true,
+			upgrade_dependency = true,
+			vendor = true,
+		},
+		hints = {
+			constantValues = true,
+		},
+		gofumpt = true,
 	},
+})
+
+lspconfig.golangci_lint_ls.setup({
+	on_attach = on_attach,
+	capabilities = handlers.capabilities,
 })
 
 lspconfig.jsonls.setup({
@@ -73,6 +90,15 @@ lspconfig.jsonls.setup({
 })
 
 lspconfig.tsserver.setup({
+	settings = {
+		typescript = {
+			tsserver = {
+				trace = {
+					server = "off",
+				},
+			},
+		},
+	},
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 })
@@ -143,17 +169,17 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
--- lspconfig.eslint.setup({
--- 	on_attach = on_attach,
--- 	capabilities = handlers.capabilities,
--- })
-
--- Setup the LSP server to attach when you edit an sg:// buffer
-require("sg").setup({
-	-- Pass your own custom attach function
-	--    If you do not pass your own attach function, then the following maps are provide:
-	--        - gd -> goto definition
-	--        - gr -> goto references
+lspconfig.eslint.setup({
 	on_attach = on_attach,
+	capabilities = handlers.capabilities,
 })
-vim.cmd([[nnoremap <space>sg <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>]])
+
+-- -- Setup the LSP server to attach when you edit an sg:// buffer
+-- require("sg").setup({
+-- 	-- Pass your own custom attach function
+-- 	--    If you do not pass your own attach function, then the following maps are provide:
+-- 	--        - gd -> goto definition
+-- 	--        - gr -> goto references
+-- 	on_attach = on_attach,
+-- })
+-- vim.cmd([[nnoremap <space>sg <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>]])

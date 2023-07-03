@@ -31,15 +31,37 @@ vim.cmd([[au FileType lua nnoremap <leader>S :so!<CR>]])
 ------------------------------
 -- " => Colorscheme section
 ------------------------------
-vim.cmd([[hi @string ctermfg=228 guifg=#f1fa8c gui=bold]])
-vim.cmd([[hi @keyword ctermfg=228 guifg=#30baf8 gui=bold]])
-vim.cmd([[hi @function ctermfg=228 guifg=#ffe1ff gui=bold]])
-vim.cmd([[hi @function.builtin ctermfg=228 guifg=#ffe1ff gui=italic]])
-vim.cmd([[hi @constant ctermfg=228 guifg=#ff79c6 gui=italic,bold]])
-vim.cmd([[hi @property ctermfg=228 guifg=#98ff98 gui=italic]])
-vim.cmd([[hi @boolean ctermfg=228 guifg=#ab92b3 gui=italic,bold]])
-vim.cmd([[hi @tag ctermfg=228 guifg=#bf9 gui=italic,bold]])
-vim.cmd([[hi @include ctermfg=228 guifg=#12e781 gui=italic,bold]])
-vim.cmd([[hi @parameter ctermfg=228 gui=italic]])
-vim.cmd([[hi @type ctermfg=228 gui=italic,bold]])
-vim.cmd([[hi @namespace ctermfg=228 gui=italic,bold]])
+
+local function set_colors()
+	vim.cmd([[hi @string ctermfg=228 guifg=#f1fa8c gui=bold]])
+	vim.cmd([[hi @keyword ctermfg=228 guifg=#30baf8 gui=bold]])
+	vim.cmd([[hi @function ctermfg=228 guifg=#ffe1ff gui=bold]])
+	vim.cmd([[hi @function.builtin ctermfg=228 guifg=#ffe1ff gui=italic]])
+	vim.cmd([[hi @constant ctermfg=228 guifg=#ff79c6 gui=italic,bold]])
+	vim.cmd([[hi @constant.builtin ctermfg=228 guifg=#ff79c6 gui=bold]])
+	vim.cmd([[hi @property ctermfg=228 guifg=#98ff98 gui=italic]])
+	vim.cmd([[hi @boolean ctermfg=228 guifg=#ab92b3 gui=italic,bold]])
+	vim.cmd([[hi @tag ctermfg=228 guifg=#bf9 gui=italic,bold]])
+	vim.cmd([[hi @include ctermfg=228 guifg=#12e781 gui=italic,bold]])
+	vim.cmd([[hi @parameter ctermfg=228 gui=italic]])
+	vim.cmd([[hi @type ctermfg=228 gui=italic,bold]])
+	vim.cmd([[hi @namespace ctermfg=228 gui=italic,bold]])
+	vim.cmd([[hi @method ctermfg=228 gui=bold]])
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = set_colors,
+})
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*.ts*",
+	callback = function()
+		set_colors()
+		vim.cmd([[hi @property ctermfg=228 guifg=#98ff98 gui=bold]])
+		vim.cmd([[hi @method ctermfg=228 guifg=#98ff98 gui=bold]])
+		vim.cmd([[hi @variable ctermfg=228 guifg=#abcdef gui=italic,bold]])
+	end,
+})
+
+set_colors()
