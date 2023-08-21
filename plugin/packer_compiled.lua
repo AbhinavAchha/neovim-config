@@ -150,7 +150,7 @@ _G.packer_plugins = {
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
   ["github-nvim-theme"] = {
-    config = { "\27LJ\2\no\0\1\6\3\4\0\15\15\0\0\0X\1\4€-\1\0\0009\1\0\1\18\3\0\0B\1\2\1-\1\1\0009\1\1\1-\3\2\0009\3\2\3-\5\0\0009\5\3\5B\3\2\0A\1\0\1K\0\1\0\0À\2À\1À\vschema\nsetup\tload\24apply_configuration\0" },
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17github-theme\frequire\0" },
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/github-nvim-theme",
     url = "https://github.com/projekt0n/github-nvim-theme"
@@ -325,11 +325,6 @@ _G.packer_plugins = {
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/semshi",
     url = "https://github.com/numirias/semshi"
   },
-  ["sg.nvim"] = {
-    loaded = true,
-    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/sg.nvim",
-    url = "https://github.com/tjdevries/sg.nvim"
-  },
   ["tailwindcss-colors.nvim"] = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/tailwindcss-colors.nvim",
@@ -390,7 +385,7 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: github-nvim-theme
 time([[Config for github-nvim-theme]], true)
-try_loadstring("\27LJ\2\no\0\1\6\3\4\0\15\15\0\0\0X\1\4€-\1\0\0009\1\0\1\18\3\0\0B\1\2\1-\1\1\0009\1\1\1-\3\2\0009\3\2\3-\5\0\0009\5\3\5B\3\2\0A\1\0\1K\0\1\0\0À\2À\1À\vschema\nsetup\tload\24apply_configuration\0", "config", "github-nvim-theme")
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17github-theme\frequire\0", "config", "github-nvim-theme")
 time([[Config for github-nvim-theme]], false)
 
 _G._packer.inside_compile = false

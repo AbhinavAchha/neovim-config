@@ -26,10 +26,14 @@ handlers.setup()
 require("completions")
 
 local navic = require("nvim-navic")
+
 local function on_attach(client, bufnr)
 	handlers.on_attach(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
+	end
+	if client.server_capabilities.inlayHintProvider then
+		require("lsp-inlayhints").on_attach(client, bufnr)
 	end
 end
 
@@ -72,6 +76,9 @@ lspconfig.gopls.setup({
 		},
 		hints = {
 			constantValues = true,
+			assignVariableTypes = true,
+			functionTypeParameters = true,
+			parammeterNames = true,
 		},
 		gofumpt = true,
 	},
@@ -170,16 +177,13 @@ lspconfig.tailwindcss.setup({
 })
 
 lspconfig.eslint.setup({
-	on_attach = on_attach,
+	-- 	vim.api.nvim_create_autocmd("BufWritePre", {
+	-- 		buffer = bufnr,
+	-- 		command = "EslintFixAll",
+	-- 	})
+	-- end,
 	capabilities = handlers.capabilities,
+	settings = {
+		run = "onSave",
+	},
 })
-
--- -- Setup the LSP server to attach when you edit an sg:// buffer
--- require("sg").setup({
--- 	-- Pass your own custom attach function
--- 	--    If you do not pass your own attach function, then the following maps are provide:
--- 	--        - gd -> goto definition
--- 	--        - gr -> goto references
--- 	on_attach = on_attach,
--- })
--- vim.cmd([[nnoremap <space>sg <cmd>lua require('sg.telescope').fuzzy_search_results()<CR>]])

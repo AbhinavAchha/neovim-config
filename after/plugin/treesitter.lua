@@ -1,5 +1,14 @@
 local majorCommentType = { __default = "// %s", __multiline = "/* %s */" }
 
+-- check if filetype is typescriptreact or javascriptreact and set query to rainbow-parens-react else rainbow-parens
+local function get_query()
+	local extension = vim.fn.expand("%"):match("%.[^.]*$")
+	if extension == ".tsx" or extension == ".jsx" then
+		return "rainbow-parens-react"
+	end
+	return "rainbow-parens"
+end
+
 require("nvim-treesitter.configs").setup({
 	ensure_installed = "all",
 	ignore_install = {},
@@ -16,7 +25,7 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		extended_mode = true,
 		max_file_lines = nil,
-		query = "rainbow-parens",
+		query = get_query(),
 		-- Highlight the entire buffer all at once
 		strategy = require("ts-rainbow").strategy.global,
 		-- colors = {},
