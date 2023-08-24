@@ -47,6 +47,10 @@ local function set_colors()
 	vim.cmd([[hi @type ctermfg=228 gui=italic,bold]])
 	vim.cmd([[hi @namespace ctermfg=228 gui=italic,bold]])
 	vim.cmd([[hi @method ctermfg=228 gui=bold]])
+	vim.cmd([[hi @comment ctermfg=228 gui=italic guifg=#999999]])
+	vim.cmd([[hi @repeat gui=bold guifg=#ffffff]])
+	vim.cmd([[hi @operator gui=bold guifg=#ffffff]])
+	vim.cmd([[hi @number gui=bold guifg=#ffffff]])
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", {

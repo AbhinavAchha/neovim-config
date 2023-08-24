@@ -49,6 +49,7 @@ return packer.startup(function(use)
 	use("windwp/nvim-spectre")
 	use("themaxmarchuk/tailwindcss-colors.nvim")
 	use("lvimuser/lsp-inlayhints.nvim")
+	use("MaximilianLloyd/tw-values.nvim")
 
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
@@ -77,7 +78,6 @@ return packer.startup(function(use)
 
 	use({
 		"projekt0n/github-nvim-theme",
-		branch = "0.0.x",
 		config = function()
 			require("github-theme").setup()
 		end,

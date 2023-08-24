@@ -1,8 +1,10 @@
 local options = {
+	filetype = "on",
+	syntax = "on",
 	autoindent = true,
 	so = 7,
 	encoding = utf8,
-	laststatus = 2,
+	laststatus = 3,
 	ffs = "unix",
 	nu = true,
 	relativenumber = true,
@@ -53,22 +55,27 @@ local options = {
 	splitright = true,
 	whichwrap = "<,>,h,l",
 	background = "dark",
+	list = true,
+	listchars = "tab:»·,trail:·,extends:→,precedes:←,nbsp:␣",
+	showbreak = "↳ ",
+	mousemodel = "extend",
 }
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.cmd([[set iskeyword +=-]])
+vim.opt["iskeyword"] = vim.opt["iskeyword"] + { "-" }
+
+-- vim.cmd([[set iskeyword +=-]])
 
 vim.cmd([[let g:glow_binary_path = expand("$HOME/.bin")]])
 
 -- vim.cmd([[colorscheme rigel]])
 -- vim.cmd([[colorscheme duskfox]])
--- vim.cmd([[colorscheme kanagawa]])
--- vim.cmd([[colorscheme dracula]])
+vim.cmd([[colorscheme tokyonight]])
 
-vim.cmd([[colorscheme github_dark]])
+-- vim.cmd([[colorscheme github_dark]])
 
 vim.g.highlightedyank_highlight_duration = 200
 -- disable netrw at the very start of your init.lua (strongly advised)

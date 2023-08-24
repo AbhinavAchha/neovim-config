@@ -71,6 +71,8 @@ nmap("<C-Right>", ":vertical resize +1<cr>")
 nmap("<M-j>", "mz:m+<cr>`z")
 nmap("<M-k>", "mz:m-2<cr>`z")
 
+nmap("<leader>tw", ":TWValues<cr>")
+
 map("c", "<leader>dd", ":!rm -rf %")
 
 map("v", "<C-s>", ":'<,'>sort<cr>", opts)

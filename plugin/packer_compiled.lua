@@ -185,6 +185,11 @@ _G.packer_plugins = {
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
+  ["lsp-inlayhints.nvim"] = {
+    loaded = true,
+    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/lsp-inlayhints.nvim",
+    url = "https://github.com/lvimuser/lsp-inlayhints.nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/lualine.nvim",
@@ -349,6 +354,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/abhi/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
+  },
+  ["tw-values.nvim"] = {
+    loaded = true,
+    path = "/home/abhi/.local/share/nvim/site/pack/packer/start/tw-values.nvim",
+    url = "https://github.com/MaximilianLloyd/tw-values.nvim"
   },
   vim = {
     loaded = true,
