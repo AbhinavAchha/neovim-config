@@ -4,9 +4,6 @@ local function nmap(key, cmd)
 	map("n", key, cmd, opts)
 end
 
-map("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-
 nmap("0", "^")
 nmap("<leader>w", ":w<cr>")
 nmap("'", "`")

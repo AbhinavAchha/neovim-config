@@ -51,6 +51,7 @@ local function set_colors()
 	vim.cmd([[hi @repeat gui=bold guifg=#ffffff]])
 	vim.cmd([[hi @operator gui=bold guifg=#ffffff]])
 	vim.cmd([[hi @number gui=bold guifg=#ffffff]])
+	vim.cmd([[hi @type gui=bold guifg=#ffa69e]])
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -58,14 +59,15 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	callback = set_colors,
 })
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*.ts*",
-	callback = function()
-		set_colors()
-		vim.cmd([[hi @property ctermfg=228 guifg=#98ff98 gui=bold]])
-		vim.cmd([[hi @method ctermfg=228 guifg=#98ff98 gui=bold]])
-		vim.cmd([[hi @variable ctermfg=228 guifg=#abcdef gui=italic,bold]])
-	end,
-})
-
 set_colors()
+
+-- vim.cmd([[colorscheme rigel]])
+-- vim.cmd([[colorscheme duskfox]])
+vim.cmd([[colorscheme tokyonight]])
+
+-- vim.cmd([[colorscheme github_dark]])
+
+vim.g.highlightedyank_highlight_duration = 200
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1

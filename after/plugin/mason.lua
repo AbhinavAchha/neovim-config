@@ -183,6 +183,7 @@ lspconfig.eslint.setup({
 	-- 	})
 	-- end,
 	capabilities = handlers.capabilities,
+	cmd = { "vscode-eslint-language-server", "--stdio", "--cache" },
 	settings = {
 		run = "onSave",
 	},
