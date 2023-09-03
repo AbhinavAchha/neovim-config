@@ -1,7 +1,6 @@
 local opts = { noremap = true, silent = true }
-local map = vim.keymap.set
 local function nmap(key, cmd)
-	map("n", key, cmd, opts)
+	vim.keymap.set("n", key, cmd, opts)
 end
 
 nmap("0", "^")
@@ -9,23 +8,18 @@ nmap("<leader>w", ":w<cr>")
 nmap("'", "`")
 nmap("<leader>e", ":e%<cr>")
 nmap("<leader>A", "ggVG")
-nmap("<leader>Q", ":qa!<cr>")
 nmap("Q", "<NOP>")
-nmap("<leader>v", ":vsp<cr><C-w><C-w>")
-nmap("<leader>r", ":source ~/.config/nvim/init.lua<cr>")
 nmap("<leader>v", ":vsp<CR><C-w><C-w>")
 nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
 nmap("<leader>.", ":cd ..<CR>")
 
 nmap("<leader>y", '"+y')
-map("v", "<leader>y", '"+y')
+vim.keymap.set("v", "<leader>y", '"+y')
 
-map("n", "<leader>s", ":%s/<c-r><c-w>//<Left>", {})
-map("n", "<leader>m", ":set mouse=", { noremap = true })
+vim.keymap.set("n", "<leader>m", ":set mouse=", { noremap = true })
 
-map("n", "<leader>s", ":%s/<c-r><c-w>/<C-r><C-w>/gI<Left><Left><Left>", {})
-nmap("gG", "g<C-g>")
+vim.keymap.set("n", "<leader>s", ":%s/<c-r><c-w>/<C-r><C-w>/gI<Left><Left><Left>", {})
 nmap("<leader>t", ":TSContextToggle<cr>")
 nmap("<C-h>", ":tabp<cr>")
 nmap("<C-l>", ":tabN<cr>")
@@ -35,7 +29,6 @@ nmap("<leader>z", ":tab split<cr>")
 nmap("qq", ":q<cr>")
 nmap("j", "gj")
 nmap("k", "gk")
-nmap("<leader>c", ":cclose<cr>")
 
 nmap("<leader>1", "1gt")
 nmap("<leader>`", "1gt")
@@ -53,7 +46,7 @@ nmap("<C-t>", ":tabnew<cr>")
 nmap("H", "gT")
 nmap("L", "gt")
 
-map("t", "<Esc>", "<C-\\><C-n>", opts)
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
 
 nmap("<C-h>", "<C-w>h")
 nmap("<C-j>", "<C-w>j")
@@ -70,21 +63,21 @@ nmap("<M-k>", "mz:m-2<cr>`z")
 
 nmap("<leader>tw", ":TWValues<cr>")
 
-map("c", "<leader>dd", ":!rm -rf %")
+vim.keymap.set("c", "<leader>dd", ":!rm -rf %")
 
-map("v", "<C-s>", ":'<,'>sort<cr>", opts)
+vim.keymap.set("v", "<C-s>", ":'<,'>sort<cr>", opts)
 
-map("v", "<", "<gv", opts)
-map("v", ">", ">gv", opts)
-map("v", "<M-j>", ":m'>+<cr>`<my`>mzgv`yo`z", opts)
-map("v", "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z", opts)
-map("v", "C-s", ":'<,'>sort<CR>", opts)
+vim.keymap.set("v", "<", "<gv", opts)
+vim.keymap.set("v", ">", ">gv", opts)
+vim.keymap.set("v", "<M-j>", ":m'>+<cr>`<my`>mzgv`yo`z", opts)
+vim.keymap.set("v", "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z", opts)
+vim.keymap.set("v", "C-s", ":'<,'>sort<CR>", opts)
 
-map("v", "j", "gj", opts)
-map("v", "k", "gk", opts)
+vim.keymap.set("v", "j", "gj", opts)
+vim.keymap.set("v", "k", "gk", opts)
 
-map("v", "p", '"_dP', opts)
-map("v", "<leader>gG", "g<C-g>", opts)
+vim.keymap.set("v", "p", '"_dP', opts)
+
 vim.cmd([[
 cnoreabbrev W! w!
 cnoreabbrev Q! q!

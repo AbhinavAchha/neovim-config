@@ -60,27 +60,23 @@ lspconfig.gopls.setup({
 	capabilities = handlers.capabilities,
 	settings = {
 		gopls = {
-			analyses = {
-				unusedparams = true,
+			usePlaceholders = false,
+			codelenses = {
+				generate = true,
+				gc_details = true,
+				test = true,
+				tidy = true,
+				upgrade_dependency = true,
+				vendor = true,
 			},
-			staticcheck = true,
+			hints = {
+				constantValues = true,
+				assignVariableTypes = true,
+				functionTypeParameters = true,
+				rangeVariableTypes = true,
+			},
 			gofumpt = true,
 		},
-		codelenses = {
-			generate = true,
-			gc_details = true,
-			test = true,
-			tidy = true,
-			upgrade_dependency = true,
-			vendor = true,
-		},
-		hints = {
-			constantValues = true,
-			assignVariableTypes = true,
-			functionTypeParameters = true,
-			parammeterNames = true,
-		},
-		gofumpt = true,
 	},
 })
 

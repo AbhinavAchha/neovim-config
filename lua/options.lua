@@ -59,6 +59,7 @@ local options = {
 	listchars = "tab:»·,trail:·,extends:→,precedes:←,nbsp:␣",
 	showbreak = "↳ ",
 	mousemodel = "extend",
+	colorcolumn = "120",
 }
 
 for k, v in pairs(options) do

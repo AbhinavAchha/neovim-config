@@ -97,3 +97,4 @@ local opts = { noremap = true }
 
 vim.keymap.set("n", "<leader>gc", ":GoCmt<CR>", opts)
 vim.keymap.set("n", "<leader>ge", ":GoIfErr<CR>", opts)
+vim.keymap.set("n", "<leader>ga", ":GoCodeLenAct<CR>", opts)
