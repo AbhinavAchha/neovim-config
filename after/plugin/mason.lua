@@ -23,7 +23,6 @@ require("mason-lspconfig").setup({
 	},
 })
 handlers.setup()
-require("completions")
 
 local navic = require("nvim-navic")
 

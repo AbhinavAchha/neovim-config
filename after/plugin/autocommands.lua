@@ -78,3 +78,20 @@ vim.g.loaded_netrwPlugin = 1
 vim.cmd([[
   autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 ]])
+
+-- if the filetype is NeogitPopup then disable the `-` keymap, and re-enable it when the popup is closed
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "NeogitPopup",
+	callback = function()
+		vim.api.nvim_del_keymap("n", "-")
+		vim.api.nvim_del_keymap("n", "=")
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_keymap("n", "-", ":tabm -1<cr>", { noremap = true, silent = true })
+		vim.api.nvim_set_keymap("n", "=", ":tabm +1<cr>", { noremap = true, silent = true })
+	end,
+})
