@@ -23,17 +23,12 @@ vim.cmd([[au FileType typescriptreact imap <buffer> <C-c> console.log();<left><l
 vim.cmd([[au FileType html imap <buffer> <C-c> console.log();<esc>hi]])
 
 ------------------------------
--- " => Lua section
-------------------------------
-
-vim.cmd([[au FileType lua nnoremap <leader>S :so!<CR>]])
-
-------------------------------
 -- " => Colorscheme section
 ------------------------------
 
 local function set_colors()
-	vim.cmd([[hi @string ctermfg=228 guifg=#f1fa8c gui=bold
+	vim.cmd([[
+    hi @string ctermfg=228 guifg=#f1fa8c gui=bold
 	hi @keyword ctermfg=228 guifg=#30baf8 gui=bold
 	hi @function ctermfg=228 guifg=#ffe1ff gui=bold
 	hi @function.builtin ctermfg=228 guifg=#ffe1ff gui=italic
@@ -52,8 +47,9 @@ local function set_colors()
 	hi @operator gui=bold guifg=#ffffff
 	hi @number gui=bold guifg=#ffffff
 	hi @type gui=bold guifg=#ffa69e
-    hi TabLine guibg=#bcbcbc
-    hi TabLineSel guibg=#2aa5a5
+    hi @method.call.go ctermfg=228 gui=bold
+    " hi TabLine guibg=#bcbcbc
+    " hi TabLineSel guibg=#2aa5a5
     ]])
 end
 
@@ -66,32 +62,11 @@ set_colors()
 
 -- vim.cmd([[colorscheme rigel]])
 -- vim.cmd([[colorscheme duskfox]])
-vim.cmd([[colorscheme tokyonight]])
+-- vim.cmd([[colorscheme tokyonight]])
+vim.cmd.colorscheme("catppuccin")
 
 -- vim.cmd([[colorscheme github_dark]])
-
-vim.g.highlightedyank_highlight_duration = 200
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 vim.cmd([[
   autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 ]])
-
--- if the filetype is NeogitPopup then disable the `-` keymap, and re-enable it when the popup is closed
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "NeogitPopup",
-	callback = function()
-		vim.api.nvim_del_keymap("n", "-")
-		vim.api.nvim_del_keymap("n", "=")
-	end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_keymap("n", "-", ":tabm -1<cr>", { noremap = true, silent = true })
-		vim.api.nvim_set_keymap("n", "=", ":tabm +1<cr>", { noremap = true, silent = true })
-	end,
-})

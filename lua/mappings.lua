@@ -44,8 +44,6 @@ nmap("<C-t>", ":tabnew<cr>")
 nmap("H", "gT")
 nmap("L", "gt")
 
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
-
 nmap("<C-h>", "<C-w>h")
 nmap("<C-j>", "<C-w>j")
 nmap("<C-k>", "<C-w>k")
@@ -60,20 +58,21 @@ nmap("<M-j>", "mz:m+<cr>`z")
 nmap("<M-k>", "mz:m-2<cr>`z")
 
 nmap("<leader>tw", ":TWValues<cr>")
+nmap("-", ":tabm -1<cr>")
+nmap("=", ":tabm +1<cr>")
+nmap("U", "<C-r>")
 
 vim.keymap.set("c", "<leader>dd", ":!rm -rf %")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
 
 vim.keymap.set("v", "<C-s>", ":'<,'>sort<cr>", opts)
-
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<M-j>", ":m'>+<cr>`<my`>mzgv`yo`z", opts)
 vim.keymap.set("v", "<M-k>", ":m'<-2<cr>`>my`<mzgv`yo`z", opts)
 vim.keymap.set("v", "C-s", ":'<,'>sort<CR>", opts)
-
 vim.keymap.set("v", "j", "gj", opts)
 vim.keymap.set("v", "k", "gk", opts)
-
 vim.keymap.set("v", "p", '"_dP', opts)
 
 vim.cmd([[

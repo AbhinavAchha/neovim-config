@@ -64,18 +64,17 @@ end
 
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
-	local map = vim.keymap.set
-	map("n", "gD", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", opts)
-	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	map("n", "<leader>o", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	map("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	map("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+	vim.keymap.set("n", "gD", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", opts)
+	vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	vim.keymap.set("n", "<leader>o", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+	vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	vim.keymap.set("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+	vim.keymap.set("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 

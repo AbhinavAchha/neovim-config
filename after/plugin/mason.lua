@@ -59,7 +59,6 @@ lspconfig.gopls.setup({
 	capabilities = handlers.capabilities,
 	settings = {
 		gopls = {
-			usePlaceholders = false,
 			codelenses = {
 				generate = true,
 				gc_details = true,
