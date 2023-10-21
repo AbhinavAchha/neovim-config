@@ -5,13 +5,10 @@ return {
 		"SmiteshP/nvim-navic",
 	},
 
-	config = function()
-		local lualine = require("lualine")
-
+	opts = function()
 		local navic = require("nvim-navic")
 
 		local kernel = " " .. string.match(io.popen("uname -r"):read("l"), "%d+.%d+.%d+")
-		navic.setup({})
 
 		local function linux()
 			return kernel
@@ -53,7 +50,7 @@ return {
 			-- padding = 0.25,
 		}
 
-		lualine.setup({
+		return {
 			options = {
 				icons_enabled = true,
 				theme = "catppuccin",
@@ -96,6 +93,6 @@ return {
 			},
 			tabline = {},
 			extensions = {},
-		})
+		}
 	end,
 }

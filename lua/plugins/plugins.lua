@@ -16,7 +16,6 @@ return {
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
 
-	{ "numirias/semshi", build = ":UpdateRemotePlugins" },
 	{ "mg979/vim-visual-multi", branch = "master" },
 
 	{

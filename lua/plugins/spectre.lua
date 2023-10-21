@@ -1,5 +1,5 @@
 return {
-	"windwp/nvim-spectre",
+	"nvim-pack/nvim-spectre",
 
 	keys = {
 		{ "<leader>S", ":lua require('spectre').open()<CR>" },

@@ -38,7 +38,6 @@ local options = {
 	hid = false,
 	ignorecase = true,
 	incsearch = true,
-	lazyredraw = true,
 	magic = true,
 	showmatch = true,
 	mat = 2,

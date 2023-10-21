@@ -2,21 +2,12 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		"HiPhish/nvim-ts-rainbow2",
+		"hiphish/rainbow-delimiters.nvim",
 	},
 	build = ":TSUpdate",
 
 	config = function()
 		local majorCommentType = { __default = "// %s", __multiline = "/* %s */" }
-
-		-- check if filetype is typescriptreact or javascriptreact and set query to rainbow-parens-react else rainbow-parens
-		local function get_query()
-			local extension = vim.fn.expand("%"):match("%.[^.]*$")
-			if extension == ".tsx" or extension == ".jsx" then
-				return "rainbow-parens-react"
-			end
-			return "rainbow-parens"
-		end
 
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = "all",
@@ -29,16 +20,6 @@ return {
 			},
 			indend = {
 				enable = true,
-			},
-			rainbow = {
-				enable = true,
-				extended_mode = true,
-				max_file_lines = nil,
-				query = get_query(),
-				-- Highlight the entire buffer all at once
-				strategy = require("ts-rainbow").strategy.global,
-				-- colors = {},
-				-- termcolors = {},
 			},
 			autopairs = {
 				enable = true,
@@ -55,5 +36,28 @@ return {
 				},
 			},
 		})
+
+		-- This module contains a number of default definitions
+		local rainbow_delimiters = require("rainbow-delimiters")
+
+		vim.g.rainbow_delimiters = {
+			strategy = {
+				[""] = rainbow_delimiters.strategy["global"],
+				vim = rainbow_delimiters.strategy["local"],
+			},
+			query = {
+				[""] = "rainbow-delimiters",
+				lua = "rainbow-blocks",
+			},
+			highlight = {
+				"RainbowDelimiterRed",
+				"RainbowDelimiterYellow",
+				"RainbowDelimiterBlue",
+				"RainbowDelimiterOrange",
+				"RainbowDelimiterGreen",
+				"RainbowDelimiterViolet",
+				"RainbowDelimiterCyan",
+			},
+		}
 	end,
 }

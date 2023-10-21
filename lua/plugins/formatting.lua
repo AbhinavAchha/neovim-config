@@ -10,8 +10,11 @@ local javascript = {
 
 return {
 	"mhartington/formatter.nvim",
-	config = function()
-		require("formatter").setup({
+	opts = function()
+		vim.cmd(
+			[[ autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py FormatWrite ]]
+		)
+		return {
 			logging = false,
 			filetype = {
 				javascript = javascript,
@@ -73,10 +76,6 @@ return {
 					require("formatter.filetypes.any").remove_trailing_whitespace,
 				},
 			},
-		})
-
-		vim.cmd(
-			[[ autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py FormatWrite ]]
-		)
+		}
 	end,
 }

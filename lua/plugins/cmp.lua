@@ -43,7 +43,7 @@ return {
 		"rafamadriz/friendly-snippets",
 	},
 
-	config = function()
+	opts = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 
@@ -54,7 +54,7 @@ return {
 		-- 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 		-- end
 
-		cmp.setup({
+		return {
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body) -- For `luasnip` users.
@@ -170,6 +170,6 @@ return {
 			-- view = {
 			-- 	entries = "native",
 			-- },
-		})
+		}
 	end,
 }
