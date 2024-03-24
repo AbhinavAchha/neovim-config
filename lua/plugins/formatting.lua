@@ -2,7 +2,7 @@ local javascript = {
 	function()
 		return {
 			exe = "prettierd",
-			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
+			args = { vim.api.nvim_buf_get_name(0) },
 			stdin = true,
 		}
 	end,
@@ -12,7 +12,7 @@ return {
 	"mhartington/formatter.nvim",
 	opts = function()
 		vim.cmd(
-			[[ autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py FormatWrite ]]
+			[[ autocmd BufWritePost *.js,*,mjs,*.cjs,*.rs,*.lua,*.tsx,*.ts,*.html,*.css,*.jsx,*.sh,*.py,*.sql,*.c FormatWrite ]]
 		)
 		return {
 			logging = false,
@@ -28,9 +28,7 @@ return {
 					function()
 						return {
 							exe = "stylua",
-							args = {
-								"-",
-							},
+							args = { "-" },
 							stdin = true,
 						}
 					end,
@@ -67,6 +65,15 @@ return {
 							exe = "shfmt",
 							args = { "-i", 2 },
 							stdin = true,
+						}
+					end,
+				},
+				sql = {
+					function()
+						return {
+							exe = "sql-formatter",
+							args = { "--config", "~/.config/sql-formatter.json", "--fix" },
+							stdin = false,
 						}
 					end,
 				},

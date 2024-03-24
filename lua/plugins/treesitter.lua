@@ -7,8 +7,6 @@ return {
 	build = ":TSUpdate",
 
 	config = function()
-		local majorCommentType = { __default = "// %s", __multiline = "/* %s */" }
-
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = "all",
 			ignore_install = {},
@@ -23,17 +21,6 @@ return {
 			},
 			autopairs = {
 				enable = true,
-			},
-			context_commentstring = {
-				enable = true,
-				enable_autocmd = true,
-				config = {
-					typescript = majorCommentType,
-					typescriptreact = majorCommentType,
-					javascript = majorCommentType,
-					javascriptreact = majorCommentType,
-					go = majorCommentType,
-				},
 			},
 		})
 

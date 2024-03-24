@@ -26,13 +26,15 @@ handlers.setup()
 
 local navic = require("nvim-navic")
 
+local inlay_hints = require("lsp-inlayhints")
+
 local function on_attach(client, bufnr)
 	handlers.on_attach(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
 	end
 	if client.server_capabilities.inlayHintProvider then
-		require("lsp-inlayhints").on_attach(client, bufnr)
+		inlay_hints.on_attach(client, bufnr)
 	end
 end
 
@@ -91,15 +93,6 @@ lspconfig.jsonls.setup({
 })
 
 lspconfig.tsserver.setup({
-	settings = {
-		typescript = {
-			tsserver = {
-				trace = {
-					server = "off",
-				},
-			},
-		},
-	},
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
 })
@@ -164,7 +157,16 @@ lspconfig.tailwindcss.setup({
 	end,
 	capabilities = handlers.capabilities,
 	settings = {
-		tailwindCss = {
+		tailwindCSS = {
+			experimental = {
+				classRegex = {
+					{ "clsx\\(([^]*)\\)", "(?:'|\"|`)([^\"'`]*)(?:'|\"|`)" },
+					{ "classnames\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
+					":\\s*?[\"'`]([^\"'`]*).*?,",
+					"(?:const|let|var)\\s+[\\w$_][_\\w\\d]*\\s*=\\s*['\\\"](.*?)['\\\"]",
+					{ "(?:twMerge|twJoin)\\(([^;]*)[\\);]", "[`'\"`]([^'\"`;]*)[`'\"`]" },
+				},
+			},
 			classAttributes = { "class", "className", "classes" },
 		},
 	},

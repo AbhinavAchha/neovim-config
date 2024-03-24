@@ -1,5 +1,4 @@
 local options = {
-	filetype = "on",
 	syntax = "on",
 	autoindent = true,
 	so = 7,

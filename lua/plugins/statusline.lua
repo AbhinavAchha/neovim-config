@@ -53,7 +53,7 @@ return {
 		return {
 			options = {
 				icons_enabled = true,
-				theme = "catppuccin",
+				theme = "cyberdream",
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = { "dashboard", "NvimTree", "Outline" },

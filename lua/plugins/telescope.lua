@@ -11,7 +11,6 @@ return {
 
 	keys = {
 		{ "<leader>ff", ":Telescope fd<CR>" },
-		{ "<leader>fb", ":Telescope file_browser<CR>" },
 		{ "<leader>rg", ":Telescope live_grep<CR>" },
 		{ "<leader>fgc", ":Telescope git_commits<cr>" },
 		{ "<leader>fgs", ":Telescope git_status<cr>" },
@@ -19,5 +18,6 @@ return {
 		{ "<leader>/", ":Telescope search_history<cr>" },
 		{ "<leader>:", ":Telescope command_history<cr>" },
 		{ "<leader>k", ":Telescope keymaps<cr>" },
+		{ "<leader>gs", ":Telescope grep_string<cr>" },
 	},
 }
