@@ -9,9 +9,9 @@ return {
 		disable_defaults = false, -- true|false when true set false to all boolean settings and replace all table
 		-- settings with {}
 		go = "go", -- go command, can be go[default] or go1.18beta1
-		goimport = "golines", -- goimport command, can be gopls[default] or goimport
+		goimports = "golines", -- goimport command, can be gopls[default] or goimport
 		fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
-		gofmt = "gofumpt", --gofmt cmd,
+		gofmt = "golines", --gofmt cmd,
 		max_line_len = 120, -- max line length in golines format, Target maximum line length for golines
 		tag_transform = "snakecase", -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
 		gotests_template = "", -- sets gotests -template parameter (check gotests for details)
