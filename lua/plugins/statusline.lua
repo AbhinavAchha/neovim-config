@@ -8,12 +8,6 @@ return {
 	opts = function()
 		local navic = require("nvim-navic")
 
-		local kernel = " " .. string.match(io.popen("uname -r"):read("l"), "%d+.%d+.%d+")
-
-		local function linux()
-			return kernel
-		end
-
 		local diagnostics = {
 			"diagnostics",
 			sources = { "nvim_diagnostic" },
@@ -80,7 +74,7 @@ return {
 					{ navic.get_location, cond = navic.is_available },
 				},
 				lualine_x = { diff, filetype },
-				lualine_y = { location, linux },
+				lualine_y = { location },
 				lualine_z = { "filesize" },
 			},
 			inactive_sections = {

@@ -19,5 +19,7 @@ return {
 		{ "<leader>:", ":Telescope command_history<cr>" },
 		{ "<leader>k", ":Telescope keymaps<cr>" },
 		{ "<leader>gs", ":Telescope grep_string<cr>" },
+		{ "<leader>ds", ":Telescope lsp_document_symbols<cr>" },
+		{ "<leader>dw", ":Telescope lsp_dynamic_workspace_symbols<cr>" },
 	},
 }
