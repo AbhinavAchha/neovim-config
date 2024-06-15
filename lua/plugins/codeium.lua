@@ -1,8 +1,9 @@
 return {
 	"Exafunction/codeium.vim",
 	event = "BufEnter",
+	commit = "9406f13cf3eaa08318b76746bd105a04506cab27",
 
-	init = function()
+	config = function()
 		vim.keymap.set("i", "<c-l>", function()
 			return vim.fn["codeium#Accept"]()
 		end, { expr = true })

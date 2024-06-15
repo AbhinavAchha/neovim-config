@@ -25,7 +25,7 @@ M.setup = function()
 			focusable = true,
 			style = "minimal",
 			border = "rounded",
-			source = "always",
+			source = "if_many",
 			header = "",
 			prefix = "",
 		},
@@ -46,6 +46,11 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "rounded",
 	})
+
+	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+		-- delay update diagnostics
+		update_in_insert = false,
+	})
 end
 
 local function lsp_highlight_document(client)
@@ -53,7 +58,6 @@ local function lsp_highlight_document(client)
 	if client.server_capabilities.document_highlight then
 		vim.cmd([[
       augroup lsp_document_highlight
-        autocmd! * <buffer>
       autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
       autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
@@ -71,16 +75,14 @@ local function lsp_keymaps(bufnr)
 	vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.keymap.set("n", "<leader>o", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
 	vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	vim.keymap.set("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
 	vim.keymap.set("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
 M.on_attach = function(client, bufnr)
 	lsp_keymaps(bufnr)
-	-- lsp_highlight_document(client)
+	lsp_highlight_document(client)
 end
 
 M.capabilities = require("cmp_nvim_lsp").default_capabilities()

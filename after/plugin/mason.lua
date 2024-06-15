@@ -94,7 +94,17 @@ lspconfig.jsonls.setup({
 
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
+	root_dir = function(...)
+		return require("lspconfig.util").root_pattern(".git")(...)
+	end,
 	capabilities = handlers.capabilities,
+	settings = {
+		typescript = {
+			format = {
+				enable = false,
+			},
+		},
+	},
 })
 
 lspconfig.pyright.setup({
@@ -155,6 +165,9 @@ lspconfig.tailwindcss.setup({
 		require("tailwindcss-colors").buf_attach(bufnr)
 		on_attach(client, bufnr)
 	end,
+	root_dir = function(...)
+		return require("lspconfig.util").root_pattern(".git")(...)
+	end,
 	capabilities = handlers.capabilities,
 	settings = {
 		tailwindCSS = {
@@ -178,9 +191,15 @@ lspconfig.eslint.setup({
 	-- 		command = "EslintFixAll",
 	-- 	})
 	-- end,
+	on_attach = handlers.on_attach,
 	capabilities = handlers.capabilities,
-	cmd = { "vscode-eslint-language-server", "--stdio", "--cache" },
+	-- cmd = { "eslint_d", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--" },
 	settings = {
-		run = "onSave",
+		eslint = {
+			run = "onSave",
+		},
 	},
+	root_dir = function(...)
+		return require("lspconfig.util").root_pattern(".git")(...)
+	end,
 })
