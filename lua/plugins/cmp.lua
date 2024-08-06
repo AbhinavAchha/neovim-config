@@ -40,14 +40,11 @@ return {
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 		"hrsh7th/cmp-calc",
 		"L3MON4D3/LuaSnip",
-		"rafamadriz/friendly-snippets",
 	},
 
 	opts = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
-
-		require("luasnip/loaders/from_vscode").lazy_load()
 
 		-- local check_backspace = function()
 		-- 	local col = vim.fn.col(".") - 1

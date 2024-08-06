@@ -20,6 +20,7 @@ require("mason-lspconfig").setup({
 		"yamlls",
 		"html",
 		"golangci_lint_ls",
+		"zls",
 	},
 })
 handlers.setup()
@@ -94,9 +95,7 @@ lspconfig.jsonls.setup({
 
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
-	root_dir = function(...)
-		return require("lspconfig.util").root_pattern(".git")(...)
-	end,
+	root_dir = require("lspconfig.util").root_pattern(".git"),
 	capabilities = handlers.capabilities,
 	settings = {
 		typescript = {
@@ -165,9 +164,7 @@ lspconfig.tailwindcss.setup({
 		require("tailwindcss-colors").buf_attach(bufnr)
 		on_attach(client, bufnr)
 	end,
-	root_dir = function(...)
-		return require("lspconfig.util").root_pattern(".git")(...)
-	end,
+	root_dir = require("lspconfig.util").root_pattern(".git"),
 	capabilities = handlers.capabilities,
 	settings = {
 		tailwindCSS = {
@@ -185,21 +182,30 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
-lspconfig.eslint.setup({
-	-- 	vim.api.nvim_create_autocmd("BufWritePre", {
-	-- 		buffer = bufnr,
-	-- 		command = "EslintFixAll",
-	-- 	})
-	-- end,
-	on_attach = handlers.on_attach,
+-- lspconfig.eslint.setup({
+-- 	-- 	vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	-- 		buffer = bufnr,
+-- 	-- 		command = "EslintFixAll",
+-- 	-- 	})
+-- 	-- end,
+-- 	on_attach = handlers.on_attach,
+-- 	capabilities = handlers.capabilities,
+-- 	-- cmd = { "eslint_d", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--" },
+-- 	settings = {
+-- 		run = "onSave",
+-- 		useFlatConfig = true,
+-- 		eslint = {
+-- 			run = "onSave",
+-- 			useFlatConfig = true,
+-- 			experimental = {
+-- 				useFlatConfig = true,
+-- 			},
+-- 		},
+-- 	},
+-- 	root_dir = require("lspconfig.util").root_pattern(".git"),
+-- })
+--
+lspconfig.zls.setup({
+	on_attach = on_attach,
 	capabilities = handlers.capabilities,
-	-- cmd = { "eslint_d", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--" },
-	settings = {
-		eslint = {
-			run = "onSave",
-		},
-	},
-	root_dir = function(...)
-		return require("lspconfig.util").root_pattern(".git")(...)
-	end,
 })

@@ -19,7 +19,7 @@ vim.keymap.set("v", "<leader>y", '"+y')
 
 vim.keymap.set("n", "<leader>m", ":set mouse=", { noremap = true })
 
-vim.keymap.set("n", "<leader>s", ":%s/<c-r><c-w>/<C-r><C-w>/gI<Left><Left><Left>", {})
+-- vim.keymap.set("n", "<leader>s", ":%s/<c-r><c-w>/<C-r><C-w>/gI<Left><Left><Left>", {})
 nmap("<C-h>", ":tabp<cr>")
 nmap("<C-l>", ":tabN<cr>")
 nmap("<leader>z", ":tab split<cr>")

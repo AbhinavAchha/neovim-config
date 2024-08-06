@@ -5,17 +5,15 @@ return {
 	-- install jsregexp (optional!).
 	build = "make install_jsregexp",
 
-	config = function()
-		require("luasnip/loaders/from_vscode").load()
-		local ls = require("luasnip")
-		local s = ls.snippet
-		local t = ls.text_node
-		local i = ls.insert_node
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+		"honza/vim-snippets",
+	},
 
-		ls.add_snippets("typescriptreact", {
-			s("package", {
-				t({ "/**", "* @package", "*/" }),
-			}),
+	config = function()
+		require("luasnip.loaders.from_vscode").lazy_load()
+		require("luasnip.loaders.from_snipmate").lazy_load({
+			paths = { "~/.config/nvim/lua/snippets" },
 		})
 	end,
 }

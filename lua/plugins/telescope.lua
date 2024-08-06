@@ -17,6 +17,9 @@ return {
 				},
 				show_line = true,
 			},
+			builtins = {
+				sort_mru = true,
+			},
 		})
 		local TelescopePrompt = {
 			TelescopePromptBorder = {

@@ -69,8 +69,6 @@ vim.opt["iskeyword"] = vim.opt["iskeyword"] + { "-" }
 
 -- vim.cmd([[set iskeyword +=-]])
 
-vim.cmd([[let g:glow_binary_path = expand("$HOME/.bin")]])
-
 vim.g.highlightedyank_highlight_duration = 200
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
