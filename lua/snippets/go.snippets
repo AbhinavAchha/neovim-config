@@ -1,0 +1,11 @@
+extends go
+
+snippet uid "user id from context"
+	uid := user.GetUserIDFromCtx(ctx)
+
+snippet logerr "log error"
+	if err != nil {
+		log.Err(err).Send()
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}

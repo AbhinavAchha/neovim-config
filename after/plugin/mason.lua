@@ -7,7 +7,7 @@ require("mason-lspconfig").setup({
 		"lua_ls",
 		"jsonls",
 		"pyright",
-		"tsserver",
+		"ts_ls",
 		"gopls",
 		"eslint",
 		"clangd",
@@ -93,7 +93,7 @@ lspconfig.jsonls.setup({
 	setup = require("jsonls").setup,
 })
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	on_attach = on_attach,
 	root_dir = require("lspconfig.util").root_pattern(".git"),
 	capabilities = handlers.capabilities,
