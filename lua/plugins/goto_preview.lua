@@ -1,5 +1,6 @@
 return {
 	"rmagatti/goto-preview",
+	config = true,
 	opts = {
 		width = 120, -- Width of the floating window
 		height = 15, -- Height of the floating window

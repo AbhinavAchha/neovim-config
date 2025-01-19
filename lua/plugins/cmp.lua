@@ -38,7 +38,6 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-nvim-lua",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
-		"hrsh7th/cmp-calc",
 		"L3MON4D3/LuaSnip",
 	},
 
@@ -125,7 +124,6 @@ return {
 				{ name = "git" },
 				{ name = "buffer", keyword_length = 3 },
 				{ name = "nvim_lsp_signature_help" },
-				{ name = "calc" },
 			}),
 			confirm_opts = {
 				behavior = cmp.ConfirmBehavior.Replace,

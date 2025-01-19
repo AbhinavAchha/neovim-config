@@ -27,15 +27,10 @@ handlers.setup()
 
 local navic = require("nvim-navic")
 
-local inlay_hints = require("lsp-inlayhints")
-
 local function on_attach(client, bufnr)
 	handlers.on_attach(client, bufnr)
 	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
-	end
-	if client.server_capabilities.inlayHintProvider then
-		inlay_hints.on_attach(client, bufnr)
 	end
 end
 
@@ -89,7 +84,7 @@ lspconfig.golangci_lint_ls.setup({
 lspconfig.jsonls.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
-	settings = require("jsonls").settings,
+	-- settings = require("jsonls").settings,
 	setup = require("jsonls").setup,
 })
 
@@ -182,29 +177,43 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
--- lspconfig.eslint.setup({
--- 	-- 	vim.api.nvim_create_autocmd("BufWritePre", {
--- 	-- 		buffer = bufnr,
--- 	-- 		command = "EslintFixAll",
--- 	-- 	})
--- 	-- end,
--- 	on_attach = handlers.on_attach,
--- 	capabilities = handlers.capabilities,
--- 	-- cmd = { "eslint_d", "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--" },
--- 	settings = {
--- 		run = "onSave",
--- 		useFlatConfig = true,
--- 		eslint = {
--- 			run = "onSave",
--- 			useFlatConfig = true,
--- 			experimental = {
--- 				useFlatConfig = true,
--- 			},
--- 		},
--- 	},
--- 	root_dir = require("lspconfig.util").root_pattern(".git"),
--- })
---
+lspconfig.eslint.setup({
+	settings = {
+		codeAction = {
+			disableRuleComment = {
+				enable = true,
+				location = "separateLine",
+			},
+			showDocumentation = {
+				enable = true,
+			},
+		},
+		codeActionOnSave = {
+			enable = true,
+			mode = "all",
+		},
+		experimental = {
+			useFlatConfig = true,
+		},
+		format = false,
+		nodePath = "",
+		onIgnoredFiles = "off",
+		problems = {
+			shortenToSingleLine = false,
+		},
+		quiet = false,
+		rulesCustomizations = {},
+		run = "onSave",
+		useESLintClass = false,
+		validate = "on",
+		workingDirectory = {
+			mode = "location",
+		},
+	},
+	on_attach = handlers.on_attach,
+	capabilities = handlers.capabilities,
+})
+
 lspconfig.zls.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,

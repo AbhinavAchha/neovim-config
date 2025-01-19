@@ -3,4 +3,7 @@ return {
 	opts = {
 		border = "rounded",
 	},
+	keys = {
+		{ "<leader>tw", ":TWValues<cr>" },
+	},
 }

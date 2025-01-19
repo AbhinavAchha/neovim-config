@@ -56,7 +56,6 @@ nmap("<C-Right>", ":vertical resize +1<cr>")
 nmap("<M-j>", "mz:m+<cr>`z")
 nmap("<M-k>", "mz:m-2<cr>`z")
 
-nmap("<leader>tw", ":TWValues<cr>")
 nmap("-", ":tabm -1<cr>")
 nmap("=", ":tabm +1<cr>")
 nmap("U", "<C-r>")

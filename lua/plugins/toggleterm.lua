@@ -48,6 +48,14 @@ return {
 		function _GO_TOGGLE()
 			Terminal:new({ cmd = "gomacro", hidden = true }):toggle()
 		end
+
+		function _PGCLI_TOGGLE()
+			Terminal:new({ cmd = "pgcli --dbname postgres", hidden = true }):toggle()
+		end
+
+		function _CALC_TOGGLE()
+			Terminal:new({ cmd = "calc", hidden = true }):toggle()
+		end
 	end,
 
 	keys = {
@@ -55,5 +63,7 @@ return {
 		{ "<leader>tn", ":lua _NODE_TOGGLE()<cr>" },
 		{ "<leader>th", ":lua _HTOP_TOGGLE()<cr>" },
 		{ "<leader>tg", ":lua _GO_TOGGLE()<cr>" },
+		{ "<leader>ts", ":lua _PGCLI_TOGGLE()<cr>" },
+		{ "<leader>tc", ":lua _CALC_TOGGLE()<cr>" },
 	},
 }

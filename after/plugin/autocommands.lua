@@ -2,11 +2,11 @@ vim.cmd([[autocmd FileType text setlocal spell]])
 
 -- https://neovim.io/doc/user/lua.html#lua-highlight
 vim.cmd([[au TextYankPost * silent! lua vim.highlight.on_yank()]])
+
 -------------------------------
 -- " => Python section
 -------------------------------
 vim.cmd([[au FileType python inoremap <buffer> <C-p> print()<left>]])
-vim.cmd([[au FileType python nnoremap <leader>S :Semshi enable<CR>]])
 
 ------------------------------
 -- " => JavaScript section
@@ -60,8 +60,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 set_colors()
 
--- vim.cmd([[colorscheme rigel]])
--- vim.cmd([[colorscheme duskfox]])
 -- vim.cmd([[colorscheme tokyonight]])
 -- vim.cmd.colorscheme("catppuccin")
 
