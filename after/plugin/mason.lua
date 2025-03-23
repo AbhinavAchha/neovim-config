@@ -137,6 +137,19 @@ lspconfig.dockerls.setup({
 lspconfig.yamlls.setup({
 	on_attach = on_attach,
 	capabilities = handlers.capabilities,
+	settings = {
+		yaml = {
+			schemas = {
+				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+				-- check for both yaml and yml
+				-- ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.20.13/all.json"] = "/*.{yml,yaml}",
+				["https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json"] = "docker-compose*.yml",
+
+				["docker-compose*.yaml"] = "https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json",
+				["docker-compose*.yml"] = "https://raw.githubusercontent.com/compose-spec/compose-spec/refs/heads/main/schema/compose-spec.json",
+			},
+		},
+	},
 })
 
 lspconfig.rust_analyzer.setup({
@@ -177,42 +190,42 @@ lspconfig.tailwindcss.setup({
 	},
 })
 
-lspconfig.eslint.setup({
-	settings = {
-		codeAction = {
-			disableRuleComment = {
-				enable = true,
-				location = "separateLine",
-			},
-			showDocumentation = {
-				enable = true,
-			},
-		},
-		codeActionOnSave = {
-			enable = true,
-			mode = "all",
-		},
-		experimental = {
-			useFlatConfig = true,
-		},
-		format = false,
-		nodePath = "",
-		onIgnoredFiles = "off",
-		problems = {
-			shortenToSingleLine = false,
-		},
-		quiet = false,
-		rulesCustomizations = {},
-		run = "onSave",
-		useESLintClass = false,
-		validate = "on",
-		workingDirectory = {
-			mode = "location",
-		},
-	},
-	on_attach = handlers.on_attach,
-	capabilities = handlers.capabilities,
-})
+-- lspconfig.eslint.setup({
+-- 	settings = {
+-- 		codeAction = {
+-- 			disableRuleComment = {
+-- 				enable = true,
+-- 				location = "separateLine",
+-- 			},
+-- 			showDocumentation = {
+-- 				enable = true,
+-- 			},
+-- 		},
+-- 		codeActionOnSave = {
+-- 			enable = true,
+-- 			mode = "all",
+-- 		},
+-- 		experimental = {
+-- 			useFlatConfig = true,
+-- 		},
+-- 		format = false,
+-- 		nodePath = "",
+-- 		onIgnoredFiles = "off",
+-- 		problems = {
+-- 			shortenToSingleLine = false,
+-- 		},
+-- 		quiet = false,
+-- 		rulesCustomizations = {},
+-- 		run = "onSave",
+-- 		useESLintClass = false,
+-- 		validate = "on",
+-- 		workingDirectory = {
+-- 			mode = "location",
+-- 		},
+-- 	},
+-- 	on_attach = handlers.on_attach,
+-- 	capabilities = handlers.capabilities,
+-- })
 
 lspconfig.zls.setup({
 	on_attach = on_attach,
