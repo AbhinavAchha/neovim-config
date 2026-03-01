@@ -110,15 +110,15 @@ return {
 						}
 					end,
 				},
-				yaml = {
-					function()
-						return {
-							exe = "yamlfmt",
-							args = { "-" },
-							stdin = true,
-						}
-					end,
-				},
+				-- yaml = {
+				-- 	function()
+				-- 		return {
+				-- 			exe = "yamlfmt",
+				-- 			args = { "-exclude", "*.tpl.*", "-match_type", "doublestar" },
+				-- 			stdin = true,
+				-- 		}
+				-- 	end,
+				-- },
 				["*"] = {
 					-- "formatter.filetypes.any" defines default configurations for any
 					-- filetype

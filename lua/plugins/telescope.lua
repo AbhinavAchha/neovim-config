@@ -102,59 +102,66 @@ return {
 			end)
 		end
 		-- https://github.com/nvim-telescope/telescope.nvim/wiki/Gallery#padded-full-menu-in-norcallis-blue
+		-- 1) Setup: gentle transparency, not ghost mode
 		local telescope = require("telescope")
 		telescope.setup({
 			defaults = {
-				winblend = 10,
-				layout_config = {
-					width = 0.9,
-					height = 0.9,
-				},
+				winblend = 12, -- 0..30 is sane; higher is more transparent
+				layout_config = { width = 0.9, height = 0.9 },
 				show_line = true,
+				border = true,
 				mappings = {
-					i = {
-						["<C-s>"] = document_symbols_for_selected,
-					},
+					i = { ["<C-s>"] = document_symbols_for_selected },
 				},
 			},
-			builtins = {
-				sort_mru = true,
+			-- per-picker blends if you want different vibes
+			pickers = {
+				find_files = { winblend = 12 },
+				live_grep = { winblend = 8 },
+				buffers = { winblend = 0 }, -- crisp
 			},
 		})
-		local TelescopePrompt = {
-			TelescopePromptBorder = {
-				fg = "#00ff00",
-			},
-			TelescopePromptTitle = {
-				fg = "#dddddd",
-				bg = "#000000",
-			},
-			TelescopePreviewBorder = {
-				fg = "#ff00ff",
-			},
-			TelescopePreviewTitle = {
-				fg = "#ff00f0",
-				bg = "#000000",
-			},
-			TelescopeResultsBorder = {
-				fg = "#0000ff",
-			},
-			TelescopeResultsTitle = {
-				fg = "#000fff",
-				bg = "#000000",
-			},
-			TelescopeSelectionCaret = {
-				fg = "#D79921",
-				bold = true,
-			},
-			TelescopeSelection = {
-				fg = "#D79921",
-				bold = true,
-			},
-		}
-		for hl, col in pairs(TelescopePrompt) do
-			vim.api.nvim_set_hl(0, hl, col)
+
+		-- 2) Make sure floats actually have a background to blend with
+		local function solid_float_bg()
+			local function hl(name)
+				return vim.api.nvim_get_hl(0, { name = name, link = false }) or {}
+			end
+
+			local normal = hl("Normal")
+			local nfloat = hl("NormalFloat")
+
+			-- pick an actual bg: NormalFloat.bg or fallback to Normal.bg or a safe hex
+			local bg = nfloat.bg or normal.bg or 0x1e1e2e
+			local border = 0x5e81ac
+
+			-- apply to the generic float groups
+			vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg })
+			vim.api.nvim_set_hl(0, "FloatBorder", { fg = border, bg = bg })
+
+			-- apply to Telescope windows specifically
+			for _, grp in ipairs({
+				"TelescopeNormal",
+				"TelescopePromptNormal",
+				"TelescopeResultsNormal",
+				"TelescopePreviewNormal",
+			}) do
+				vim.api.nvim_set_hl(0, grp, { bg = bg, blend = 10 })
+			end
+
+			-- your existing border/title colors, but with a bg so they don’t cut holes
+			vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#00ff00", bg = bg })
+			vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = "#dddddd", bg = bg })
+			vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#ff00ff", bg = bg })
+			vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = "#ff00f0", bg = bg })
+			vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#0000ff", bg = bg })
+			vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = "#000fff", bg = bg })
+			vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#D79921", bold = true })
+			vim.api.nvim_set_hl(0, "TelescopeSelection", { fg = "#D79921", bold = true })
 		end
+
+		solid_float_bg()
+		vim.api.nvim_create_autocmd("ColorScheme", { callback = solid_float_bg })
 
 		telescope.load_extension("fzf")
 	end,
@@ -171,7 +178,6 @@ return {
 		{ "<leader>gs", ":Telescope grep_string<cr>" },
 		{ "<leader>ds", ":Telescope lsp_document_symbols<cr>" },
 		{ "<leader>dw", ":Telescope lsp_dynamic_workspace_symbols<cr>" },
-		{ "<leader>fb", ":Telescope buffers<cr>" },
 		{ "<leader>bf", ":Telescope current_buffer_fuzzy_find<cr>" },
 		{ "<leader>o", ":Telescope lsp_outgoing_calls<cr>" },
 	},

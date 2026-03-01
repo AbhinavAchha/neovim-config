@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"hiphish/rainbow-delimiters.nvim",
+		"OXY2DEV/markview.nvim",
 	},
 	build = ":TSUpdate",
 

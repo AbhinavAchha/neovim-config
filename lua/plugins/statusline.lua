@@ -2,12 +2,9 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"kyazdani42/nvim-web-devicons",
-		"SmiteshP/nvim-navic",
 	},
 
 	opts = function()
-		local navic = require("nvim-navic")
-
 		local diagnostics = {
 			"diagnostics",
 			sources = { "nvim_diagnostic" },
@@ -70,9 +67,7 @@ return {
 						},
 					},
 				},
-				lualine_c = {
-					{ navic.get_location, cond = navic.is_available },
-				},
+				lualine_c = {},
 				lualine_x = { diff, filetype },
 				lualine_y = { location },
 				lualine_z = { "filesize" },

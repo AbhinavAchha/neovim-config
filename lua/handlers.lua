@@ -1,82 +1,54 @@
-local M = {}
+-- 1) Consistent float styling
+local bg = "#1e1e2e"
+local border = "#5e81ac"
 
-local signs = {
-	{ name = "DiagnosticSignError", text = "" },
-	{ name = "DiagnosticSignWarn", text = "" },
-	{ name = "DiagnosticSignHint", text = "" },
-	{ name = "DiagnosticSignInfo", text = "" },
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg })
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = border, bg = bg })
+vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
+
+-- 2) Make markdown inside hovers not look sad
+vim.g.markdown_fenced_languages = {
+	"ts=typescript",
+	"js=javascript",
+	"json",
+	"go",
+	"rust",
+	"c",
+	"cpp",
+	"lua",
+	"python",
+	"bash=sh",
 }
 
-M.setup = function()
-	vim.diagnostic.config({
-		virtual_text = true,
-		update_in_insert = true,
-		underline = true,
-		severity_sort = true,
-		float = {
-			focusable = true,
-			style = "minimal",
-			border = "rounded",
-			source = "if_many",
-			header = "",
-			prefix = "",
-		},
-	})
+-- 3) Nice default hover handler: border, wrap, title, sizes
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+	max_width = math.floor(vim.o.columns * 0.45),
+	max_height = math.floor(vim.o.lines * 0.35),
+	focusable = true,
+	title = " Hover ",
+	title_pos = "center",
+})
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-		-- width = 100,
-		-- height = 10,
-		position = "center",
-		header = "",
-		prefix = "",
-		source = "always",
-		style = "minimal",
-		focusable = true,
-	})
+-- 4) Real padding: wrap open_floating_preview to add blank lines and defaults
+do
+	local orig = vim.lsp.util.open_floating_preview
+	function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+		opts = opts or {}
+		opts.border = opts.border or "rounded"
+		opts.winhighlight = opts.winhighlight or "NormalFloat:NormalFloat,FloatBorder:FloatBorder"
+		opts.max_width = opts.max_width or math.floor(vim.o.columns * 0.45)
+		opts.max_height = opts.max_height or math.floor(vim.o.lines * 0.35)
+		opts.wrap = true
 
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-	})
+		-- Add padding left/right by prefixing spaces, plus top/bottom blank lines
+		local pad_left = "  "
+		local padded = { " " }
+		for _, line in ipairs(contents) do
+			table.insert(padded, pad_left .. line .. " ")
+		end
+		table.insert(padded, " ")
 
-	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-		-- delay update diagnostics
-		update_in_insert = false,
-	})
-end
-
-local function lsp_highlight_document(client)
-	-- Set autocommands conditional on server_capabilities
-	if client.server_capabilities.document_highlight then
-		vim.cmd([[
-      augroup lsp_document_highlight
-      autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]])
+		return orig(padded, syntax, opts, ...)
 	end
 end
-
-local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gD", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", opts)
-	vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	vim.keymap.set("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	vim.keymap.set("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-end
-
-M.on_attach = function(client, bufnr)
-	lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
-end
-
-M.capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-return M

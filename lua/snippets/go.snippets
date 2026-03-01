@@ -5,7 +5,7 @@ snippet uid "user id from context"
 
 snippet logerr "log error"
 	if err != nil {
-		log.Err(err).Send()
+		log.Err(err).Ctx(r.Context()).Send()
 		httputil.WriteError(w, r, err)
 		return
 	}

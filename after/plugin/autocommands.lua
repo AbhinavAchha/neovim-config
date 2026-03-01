@@ -58,6 +58,24 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	callback = set_colors,
 })
 
+-- reapply highlights after colorscheme changes
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		local bg = "#1e1e2e"
+		local border = "#5e81ac"
+		vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg })
+		vim.api.nvim_set_hl(0, "FloatBorder", { fg = border, bg = bg })
+		for _, hl in ipairs({
+			"TelescopeNormal",
+			"TelescopePromptNormal",
+			"TelescopeResultsNormal",
+			"TelescopePreviewNormal",
+		}) do
+			vim.api.nvim_set_hl(0, hl, { bg = bg })
+		end
+	end,
+})
+
 set_colors()
 
 -- vim.cmd([[colorscheme tokyonight]])
