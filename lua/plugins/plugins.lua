@@ -1,8 +1,5 @@
 return {
-	"ellisonleao/glow.nvim",
 	"mhinz/vim-startify",
-	"nvim-lua/popup.nvim",
-	"dracula/vim",
 	"almo7aya/openingh.nvim",
 	"folke/tokyonight.nvim",
 	"itchyny/vim-cursorword",

@@ -40,9 +40,8 @@ return {
 			signs = true,
 		},
 		lsp_diag_update_in_insert = false,
-		lsp_document_formatting = true,
-		-- set to true: use gopls to format
-		-- false if you want to use other formatter tool(e.g. efm, nulls)
+		lsp_document_formatting = false,
+		-- set to false: conform.nvim handles format-on-save with golines (120 char) + goimports
 		lsp_inlay_hints = {
 			enable = false,
 			-- Only show inlay hints for the current line
@@ -82,7 +81,6 @@ return {
 		-- windows: use visual studio keymap
 		dap_debug_gui = true, -- set to true to enable dap gui, highly recommend
 		dap_debug_vt = true, -- set to true to enable dap virtual text
-		build_tags = "tag1,tag2", -- set default build tags
 		textobjects = true, -- enable default text jobects through treesittter-text-objects
 		test_runner = "go", -- one of {`go`, `richgo`, `dlv`, `ginkgo`, `gotestsum`}
 		verbose_tests = true, -- set to add verbose flag to tests
@@ -95,7 +93,7 @@ return {
 		--  Do not enable this if you already added the path, that will duplicate the entries
 	},
 	init = function()
-		vim.cmd([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]])
+		-- Formatting handled by conform.nvim (golines + goimports, 120-char limit)
 	end,
 
 	keys = {

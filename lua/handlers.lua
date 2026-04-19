@@ -1,12 +1,16 @@
--- 1) Consistent float styling
-local bg = "#1e1e2e"
-local border = "#5e81ac"
+-- Float highlight groups — single source of truth, re-applied on every colorscheme change
+local function apply_float_highlights()
+	local bg = "#1e1e2e"
+	local border = "#5e81ac"
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg })
+	vim.api.nvim_set_hl(0, "FloatBorder", { fg = border, bg = bg })
+	vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
+end
 
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg })
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = border, bg = bg })
-vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
+apply_float_highlights()
+vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_float_highlights })
 
--- 2) Make markdown inside hovers not look sad
+-- Make markdown inside hovers not look sad
 vim.g.markdown_fenced_languages = {
 	"ts=typescript",
 	"js=javascript",

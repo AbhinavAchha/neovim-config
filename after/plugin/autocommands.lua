@@ -1,56 +1,56 @@
-vim.cmd([[autocmd FileType text setlocal spell]])
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "text",
+	callback = function()
+		vim.opt_local.spell = true
+	end,
+})
 
--- https://neovim.io/doc/user/lua.html#lua-highlight
-vim.cmd([[au TextYankPost * silent! lua vim.highlight.on_yank()]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
 
--------------------------------
--- " => Python section
--------------------------------
-vim.cmd([[au FileType python inoremap <buffer> <C-p> print()<left>]])
+-- Python
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "python",
+	callback = function()
+		vim.keymap.set("i", "<M-p>", "print()<left>", { buffer = true })
+	end,
+})
 
-------------------------------
--- " => JavaScript section
-------------------------------
-
-vim.cmd([[au FileType javascript imap <buffer> <C-c> console.log();<left><left>]])
-vim.cmd([[au FileType typescript imap <buffer> <C-c> console.log();<left><left>]])
-vim.cmd([[au FileType typescriptreact imap <buffer> <C-c> console.log();<left><left>]])
-
-------------------------------
--- " => HTML section
-------------------------------
-
-vim.cmd([[au FileType html imap <buffer> <C-c> console.log();<esc>hi]])
+-- JavaScript / TypeScript / HTML
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "javascript", "typescript", "typescriptreact", "html" },
+	callback = function()
+		vim.keymap.set("i", "<C-c>", "console.log();<left><left>", { buffer = true })
+	end,
+})
 
 ------------------------------
 -- " => Colorscheme section
 ------------------------------
 
 local function set_colors()
-	vim.cmd([[
-    hi @string ctermfg=228 guifg=#f1fa8c gui=bold
-	hi @keyword ctermfg=228 guifg=#30baf8 gui=bold
-	hi @function ctermfg=228 guifg=#ffe1ff gui=bold
-	hi @function.builtin ctermfg=228 guifg=#ffe1ff gui=italic
-	hi @constant ctermfg=228 guifg=#ff79c6 gui=italic,bold
-	hi @constant.builtin ctermfg=228 guifg=#ff79c6 gui=bold
-	hi @property ctermfg=228 guifg=#98ff98 gui=italic
-	hi @boolean ctermfg=228 guifg=#ab92b3 gui=italic,bold
-	hi @tag ctermfg=228 guifg=#bf9 gui=italic,bold
-	hi @include ctermfg=228 guifg=#12e781 gui=italic,bold
-	hi @parameter ctermfg=228 gui=italic
-	hi @type ctermfg=228 gui=italic,bold
-	hi @namespace ctermfg=228 gui=italic,bold
-	hi @method ctermfg=228 gui=bold
-	hi @comment ctermfg=228 gui=italic guifg=#999999
-	hi @repeat gui=bold guifg=#ffffff
-	hi @operator gui=bold guifg=#ffffff
-	hi @number gui=bold guifg=#ffffff
-	hi @type gui=bold guifg=#ffa69e
-    hi @method.call.go ctermfg=228 gui=bold
-    " hi TabLine guibg=#bcbcbc
-    " hi TabLineSel guibg=#2aa5a5
-    ]])
+	vim.api.nvim_set_hl(0, "@string", { ctermfg = 228, fg = "#f1fa8c", bold = true })
+	vim.api.nvim_set_hl(0, "@keyword", { ctermfg = 228, fg = "#30baf8", bold = true })
+	vim.api.nvim_set_hl(0, "@function", { ctermfg = 228, fg = "#ffe1ff", bold = true })
+	vim.api.nvim_set_hl(0, "@function.builtin", { ctermfg = 228, fg = "#ffe1ff", italic = true })
+	vim.api.nvim_set_hl(0, "@constant", { ctermfg = 228, fg = "#ff79c6", italic = true, bold = true })
+	vim.api.nvim_set_hl(0, "@constant.builtin", { ctermfg = 228, fg = "#ff79c6", bold = true })
+	vim.api.nvim_set_hl(0, "@property", { ctermfg = 228, fg = "#98ff98", italic = true })
+	vim.api.nvim_set_hl(0, "@boolean", { ctermfg = 228, fg = "#ab92b3", italic = true, bold = true })
+	vim.api.nvim_set_hl(0, "@tag", { ctermfg = 228, fg = "#bbff99", italic = true, bold = true })
+	vim.api.nvim_set_hl(0, "@keyword.import", { ctermfg = 228, fg = "#12e781", italic = true, bold = true })
+	vim.api.nvim_set_hl(0, "@variable.parameter", { ctermfg = 228, italic = true })
+	vim.api.nvim_set_hl(0, "@type", { bold = true, fg = "#ffa69e" })
+	vim.api.nvim_set_hl(0, "@module", { ctermfg = 228, italic = true, bold = true })
+	vim.api.nvim_set_hl(0, "@function.method", { ctermfg = 228, bold = true })
+	vim.api.nvim_set_hl(0, "@function.method.call", { ctermfg = 228, bold = true })
+	vim.api.nvim_set_hl(0, "@comment", { ctermfg = 228, fg = "#999999", italic = true })
+	vim.api.nvim_set_hl(0, "@keyword.repeat", { bold = true, fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "@operator", { bold = true, fg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "@number", { bold = true, fg = "#ffffff" })
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -58,27 +58,4 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	callback = set_colors,
 })
 
--- reapply highlights after colorscheme changes
-vim.api.nvim_create_autocmd("ColorScheme", {
-	callback = function()
-		local bg = "#1e1e2e"
-		local border = "#5e81ac"
-		vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg })
-		vim.api.nvim_set_hl(0, "FloatBorder", { fg = border, bg = bg })
-		for _, hl in ipairs({
-			"TelescopeNormal",
-			"TelescopePromptNormal",
-			"TelescopeResultsNormal",
-			"TelescopePreviewNormal",
-		}) do
-			vim.api.nvim_set_hl(0, hl, { bg = bg })
-		end
-	end,
-})
-
 set_colors()
-
--- vim.cmd([[colorscheme tokyonight]])
--- vim.cmd.colorscheme("catppuccin")
-
--- vim.cmd([[colorscheme github_dark]])

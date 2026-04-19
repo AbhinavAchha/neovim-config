@@ -25,45 +25,29 @@ return {
 	},
 
 	init = function()
-		function _G.set_terminal_keymaps()
-			vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], {})
-		end
-
-		vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+		vim.api.nvim_create_autocmd("TermOpen", {
+			pattern = "term://*",
+			callback = function()
+				vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { buffer = true })
+			end,
+		})
 
 		local Terminal = require("toggleterm.terminal").Terminal
 
-		function _NODE_TOGGLE()
-			Terminal:new({ cmd = "node", hidden = true }):toggle()
-		end
+		local node = Terminal:new({ cmd = "node", hidden = true })
+		local htop = Terminal:new({ cmd = "htop", hidden = true })
+		local python = Terminal:new({ cmd = "python", hidden = true })
+		local gomacro = Terminal:new({ cmd = "gomacro", hidden = true })
+		local pgcli = Terminal:new({ cmd = "pgcli --dbname postgres", hidden = true })
+		local calc = Terminal:new({ cmd = "calc", hidden = true })
 
-		function _HTOP_TOGGLE()
-			Terminal:new({ cmd = "htop", hidden = true }):toggle()
-		end
-
-		function _PYTHON_TOGGLE()
-			Terminal:new({ cmd = "python", hidden = true }):toggle()
-		end
-
-		function _GO_TOGGLE()
-			Terminal:new({ cmd = "gomacro", hidden = true }):toggle()
-		end
-
-		function _PGCLI_TOGGLE()
-			Terminal:new({ cmd = "pgcli --dbname postgres", hidden = true }):toggle()
-		end
-
-		function _CALC_TOGGLE()
-			Terminal:new({ cmd = "calc", hidden = true }):toggle()
-		end
+		vim.keymap.set("n", "<leader>tp", function() python:toggle() end, { desc = "Toggle Python REPL" })
+		vim.keymap.set("n", "<leader>tn", function() node:toggle() end, { desc = "Toggle Node REPL" })
+		vim.keymap.set("n", "<leader>th", function() htop:toggle() end, { desc = "Toggle htop" })
+		vim.keymap.set("n", "<leader>tg", function() gomacro:toggle() end, { desc = "Toggle Go REPL" })
+		vim.keymap.set("n", "<leader>ts", function() pgcli:toggle() end, { desc = "Toggle pgcli" })
+		vim.keymap.set("n", "<leader>tc", function() calc:toggle() end, { desc = "Toggle calc" })
 	end,
 
-	keys = {
-		{ "<leader>tp", ":lua _PYTHON_TOGGLE()<cr>" },
-		{ "<leader>tn", ":lua _NODE_TOGGLE()<cr>" },
-		{ "<leader>th", ":lua _HTOP_TOGGLE()<cr>" },
-		{ "<leader>tg", ":lua _GO_TOGGLE()<cr>" },
-		{ "<leader>ts", ":lua _PGCLI_TOGGLE()<cr>" },
-		{ "<leader>tc", ":lua _CALC_TOGGLE()<cr>" },
-	},
+	keys = {},
 }
