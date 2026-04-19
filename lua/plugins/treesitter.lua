@@ -26,6 +26,7 @@ return {
 			"css",
 			"dockerfile",
 			"go",
+			"gitcommit",
 			"html",
 			"javascript",
 			"json",
