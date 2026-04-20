@@ -68,6 +68,14 @@ vim.keymap.set("v", "j", "gj", opts)
 vim.keymap.set("v", "k", "gk", opts)
 vim.keymap.set("v", "p", '"_dP', opts)
 
+vim.keymap.set("n", "<leader>lf", function()
+	require("conform").format({ async = true, lsp_fallback = true })
+end, { noremap = true, silent = true, desc = "Format buffer" })
+
+vim.keymap.set("v", "<leader>lf", function()
+	require("conform").format({ async = true, lsp_fallback = true })
+end, { noremap = true, silent = true, desc = "Format selection" })
+
 vim.cmd([[
 cnoreabbrev W! w!
 cnoreabbrev Q! q!

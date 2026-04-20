@@ -25,10 +25,26 @@ require("mason-lspconfig").setup({
 	handlers = {
 		function(server)
 			require("lspconfig")[server].setup({
-				-- on_attach = function(client, bufnr)
-				-- 	lsp_keymaps(bufnr)
-				-- end,
 				capabilities = capabilities,
+			})
+		end,
+		["gopls"] = function()
+			require("lspconfig").gopls.setup({
+				capabilities = capabilities,
+				settings = {
+					gopls = {
+						gofumpt = true,
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
 			})
 		end,
 	},
@@ -79,6 +95,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "]d", function()
 			vim.diagnostic.goto_next({ border = "rounded" })
 		end, "Diag: Next")
+
+		-- Breadcrumbs: attach navic when server supports documentSymbol
+		local ok_navic, navic = pcall(require, "nvim-navic")
+		if ok_navic and client.server_capabilities.documentSymbolProvider then
+			navic.attach(client, buf)
+		end
 	end,
 })
-

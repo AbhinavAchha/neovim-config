@@ -1,6 +1,7 @@
 return {
 	"rmagatti/goto-preview",
 	config = true,
+	event = "BufEnter",
 	opts = {
 		width = 120, -- Width of the floating window
 		height = 15, -- Height of the floating window
@@ -29,6 +30,6 @@ return {
 	keys = {
 		{ "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>" },
 		{ "<leader>i", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>" },
-		{ "<leader>j", "<cmd>lua require('goto-preview').goto_preview_references()<CR>" },
+		{ "<leader>j", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", desc = "Preview references" },
 	},
 }

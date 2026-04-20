@@ -12,7 +12,7 @@ return {
 				css = { "prettier" },
 				json = { "prettier" },
 				go = { "golines", "goimports" },
-			lua = { "stylua" },
+				lua = { "stylua" },
 				c = { "clang_format" },
 				python = { "isort", "black" },
 				rust = { "rustfmt" },

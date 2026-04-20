@@ -2,6 +2,7 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"kyazdani42/nvim-web-devicons",
+		-- "SmiteshP/nvim-navic",
 	},
 
 	opts = function()
@@ -9,7 +10,7 @@ return {
 			"diagnostics",
 			sources = { "nvim_diagnostic" },
 			sections = { "error", "warn" },
-			symbols = { error = " ", warn = " " },
+			symbols = { error = "󰅙 ", warn = "󰀪 " },
 			colored = false,
 			update_in_insert = false,
 			always_visible = true,
@@ -18,16 +19,16 @@ return {
 		local diff = {
 			"diff",
 			colored = false,
-			symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+			symbols = { added = " ", modified = " ", removed = " " },
 			cond = function()
-				return vim.fn.winwidth(0) > 80
+				return false -- Disabled: not practical
 			end,
 		}
 
 		local filetype = {
 			"filetype",
 			icons_enabled = true,
-			icon = " ",
+			icon = "󰈙 ",
 		}
 
 		local branch = {
@@ -36,9 +37,22 @@ return {
 			icon = "",
 		}
 
-		local location = {
-			"location",
-			-- padding = 0.25,
+		local location = { "location" }
+
+		local lsp_clients = {
+			function()
+				local clients = vim.lsp.get_clients({ bufnr = 0 })
+				if #clients == 0 then
+					return ""
+				end
+				local names = vim.tbl_map(function(c)
+					return c.name
+				end, clients)
+				return " " .. table.concat(names, ", ")
+			end,
+			cond = function()
+				return false -- Disabled: not practical
+			end,
 		}
 
 		return {
@@ -59,16 +73,15 @@ return {
 						"filename",
 						file_status = true,
 						path = 1,
-
 						symbols = {
-							modified = "[+]", -- when the file was modified
-							readonly = "[-]", -- if the file is not modifiable or readonly
-							unnamed = "[No Name]", -- default display name for unnamed buffers
+							modified = "[+]",
+							readonly = "[-]",
+							unnamed = "[No Name]",
 						},
 					},
 				},
 				lualine_c = {},
-				lualine_x = { diff, filetype },
+				lualine_x = { lsp_clients, diff, filetype },
 				lualine_y = { location },
 				lualine_z = { "filesize" },
 			},
@@ -79,6 +92,21 @@ return {
 				lualine_x = { location },
 				lualine_y = {},
 				lualine_z = {},
+			},
+			-- winbar = {
+			-- 	lualine_c = {
+			-- 		{
+			-- 			function()
+			-- 				return require("nvim-navic").get_location()
+			-- 			end,
+			-- 			cond = function()
+			-- 				return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+			-- 			end,
+			-- 		},
+			-- 	},
+			-- },
+			inactive_winbar = {
+				lualine_c = { { "filename" } },
 			},
 			tabline = {},
 			extensions = {},

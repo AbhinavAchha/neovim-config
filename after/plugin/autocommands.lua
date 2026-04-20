@@ -27,6 +27,19 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Create a group so it doesn't duplicate if you source your config multiple times
+local justfile_group = vim.api.nvim_create_augroup("JustfileSettings", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "just",
+	group = justfile_group,
+	callback = function()
+		vim.opt_local.expandtab = false -- Force tabs instead of spaces
+		vim.opt_local.tabstop = 4 -- Visual width of a tab
+		vim.opt_local.shiftwidth = 4 -- Size of an indent
+	end,
+})
+
 ------------------------------
 -- " => Colorscheme section
 ------------------------------
