@@ -1,3 +1,105 @@
+local function open_location_preview(selection, parent_win)
+	if not selection then
+		return
+	end
+
+	local filename = selection.filename or selection.path
+	if not filename then
+		return
+	end
+
+	local bufnr = vim.fn.bufadd(filename)
+	vim.fn.bufload(bufnr)
+
+	if not vim.api.nvim_win_is_valid(parent_win) then
+		parent_win = vim.api.nvim_get_current_win()
+	end
+
+	local parent_width = vim.api.nvim_win_get_width(parent_win)
+	local parent_height = vim.api.nvim_win_get_height(parent_win)
+	local width = math.max(1, math.min(120, parent_width - 4))
+	local height = math.max(1, math.min(15, parent_height - 4))
+	local win = vim.api.nvim_open_win(bufnr, true, {
+		border = "rounded",
+		col = math.floor((parent_width - width) / 2),
+		height = height,
+		relative = "win",
+		row = math.floor((parent_height - height) / 2),
+		style = "minimal",
+		title = " " .. vim.fn.fnamemodify(filename, ":t") .. " ",
+		title_pos = "left",
+		width = width,
+		win = parent_win,
+	})
+
+	vim.api.nvim_win_set_cursor(win, { selection.lnum or 1, math.max(0, (selection.col or 1) - 1) })
+end
+
+local function open_lsp_picker(items, title, parent_win)
+	local telescope_opts = require("telescope.themes").get_dropdown({
+		hide_preview = false,
+		layout_config = { height = 15, width = 75 },
+	})
+	local actions = require("telescope.actions")
+
+	require("telescope.pickers")
+		.new(telescope_opts, {
+			attach_mappings = function(prompt_bufnr)
+				actions.select_default:replace(function()
+					local selection = require("telescope.actions.state").get_selected_entry()
+					actions.close(prompt_bufnr)
+					vim.schedule(function()
+						open_location_preview(selection, parent_win)
+					end)
+				end)
+				return true
+			end,
+			finder = require("telescope.finders").new_table({
+				entry_maker = require("telescope.make_entry").gen_from_quickfix(telescope_opts),
+				results = items,
+			}),
+			previewer = require("telescope.config").values.qflist_previewer(telescope_opts),
+			prompt_title = title,
+			sorter = require("telescope.config").values.generic_sorter(telescope_opts),
+		})
+		:find()
+end
+
+local function lsp_picker(method, title)
+	return function()
+		local parent_win = vim.api.nvim_get_current_win()
+		local params = function(client)
+			local position = vim.lsp.util.make_position_params(parent_win, client.offset_encoding)
+			if method == "textDocument/references" then
+				position.context = { includeDeclaration = true }
+			end
+			return position
+		end
+
+		vim.lsp.buf_request_all(0, method, params, function(results)
+			local items = {}
+
+			for client_id, response in pairs(results) do
+				if response.result then
+					local client = vim.lsp.get_client_by_id(client_id)
+					if client then
+						local locations = vim.islist(response.result) and response.result or { response.result }
+						vim.list_extend(items, vim.lsp.util.locations_to_items(locations, client.offset_encoding))
+					end
+				end
+			end
+
+			if vim.tbl_isempty(items) then
+				vim.notify("No " .. title:lower() .. " found", vim.log.levels.INFO)
+			elseif #items == 1 then
+				open_location_preview(items[1], parent_win)
+			else
+				open_lsp_picker(items, title, parent_win)
+			end
+		end)
+	end
+end
+
 return {
 	"nvim-telescope/telescope.nvim",
 
@@ -147,6 +249,9 @@ return {
 	end,
 
 	keys = {
+		{ "gp", lsp_picker("textDocument/definition", "Definitions"), desc = "Preview definitions" },
+		{ "<leader>i", lsp_picker("textDocument/implementation", "Implementations"), desc = "Preview implementations" },
+		{ "<leader>j", lsp_picker("textDocument/references", "References"), desc = "Preview references" },
 		{ "<leader>ff", ":Telescope fd<CR>" },
 		{ "<leader>rg", ":Telescope live_grep<CR>" },
 		{ "<leader>fgc", ":Telescope git_commits<cr>" },

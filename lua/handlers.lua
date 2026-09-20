@@ -24,17 +24,7 @@ vim.g.markdown_fenced_languages = {
 	"bash=sh",
 }
 
--- 3) Nice default hover handler: border, wrap, title, sizes
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-	border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-	max_width = math.floor(vim.o.columns * 0.45),
-	max_height = math.floor(vim.o.lines * 0.35),
-	focusable = true,
-	title = " Hover ",
-	title_pos = "center",
-})
-
--- 4) Real padding: wrap open_floating_preview to add blank lines and defaults
+-- Real padding: wrap open_floating_preview to add blank lines and defaults
 do
 	local orig = vim.lsp.util.open_floating_preview
 	function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)

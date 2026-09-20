@@ -91,6 +91,59 @@ cnoreabbrev Wqa wqa
 cnoreabbrev WQa wqa
 ]])
 
+local function comment_parts()
+	local commentstring = vim.bo.commentstring
+	if commentstring == "" then
+		local ok, ft_commentstring = pcall(vim.filetype.get_option, vim.bo.filetype, "commentstring")
+		if ok and type(ft_commentstring) == "string" then
+			commentstring = ft_commentstring
+		end
+	end
+
+	local before, after = commentstring:match("^(.-)%%s(.*)$")
+	if before then
+		return before, after
+	end
+
+	return "# ", ""
+end
+
+local function comment_indent()
+	return vim.api.nvim_get_current_line():match("^%s*") or ""
+end
+
+local function open_comment_line(direction)
+	local before, after = comment_parts()
+	local row = vim.api.nvim_win_get_cursor(0)[1]
+	local insert_at = direction == "below" and row or row - 1
+	local indent = comment_indent()
+	local line = indent .. before .. after
+
+	vim.api.nvim_buf_set_lines(0, insert_at, insert_at, false, { line })
+	vim.api.nvim_win_set_cursor(0, { insert_at + 1, #indent + #before })
+	vim.cmd.startinsert()
+end
+
+vim.keymap.set("n", "gco", function()
+	open_comment_line("below")
+end, { desc = "Comment: line below" })
+
+vim.keymap.set("n", "gcO", function()
+	open_comment_line("above")
+end, { desc = "Comment: line above" })
+
+vim.keymap.set("n", "gcA", function()
+	local before, after = comment_parts()
+	local row = vim.api.nvim_win_get_cursor(0)[1]
+	local line = vim.api.nvim_get_current_line()
+	local separator = line:match("%s$") and "" or " "
+	local prefix_len = #line + #separator + #before
+
+	vim.api.nvim_set_current_line(line .. separator .. before .. after)
+	vim.api.nvim_win_set_cursor(0, { row, prefix_len })
+	vim.cmd.startinsert()
+end, { desc = "Comment: end of line" })
+
 -- credits: https://www.reddit.com/r/neovim/comments/w0jzzv/comment/igfjx5y/?utm_source=share&utm_medium=web2x&context=3
 local function smart_dd()
 	if vim.api.nvim_get_current_line():match("^%s*$") then

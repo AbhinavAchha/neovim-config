@@ -7,23 +7,51 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
-		vim.highlight.on_yank()
+		if vim.hl and vim.hl.hl_op then
+			vim.hl.hl_op({ timeout = vim.g.highlightedyank_highlight_duration })
+		elseif vim.hl and vim.hl.on_yank then
+			vim.hl.on_yank({ timeout = vim.g.highlightedyank_highlight_duration })
+		end
+	end,
+})
+
+local lastplace_group = vim.api.nvim_create_augroup("LastPlace", { clear = true })
+local lastplace_ignore_buftype = { "quickfix", "nofile", "help" }
+local lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" }
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = lastplace_group,
+	callback = function(ev)
+		local buftype = vim.bo[ev.buf].buftype
+		local filetype = vim.bo[ev.buf].filetype
+		if vim.tbl_contains(lastplace_ignore_buftype, buftype) or vim.tbl_contains(lastplace_ignore_filetype, filetype) then
+			return
+		end
+
+		local mark = vim.api.nvim_buf_get_mark(ev.buf, '"')
+		local line_count = vim.api.nvim_buf_line_count(ev.buf)
+		if mark[1] < 1 or mark[1] > line_count then
+			return
+		end
+
+		pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		pcall(vim.cmd.normal, { "zv", bang = true })
 	end,
 })
 
 -- Python
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
-	callback = function()
-		vim.keymap.set("i", "<M-p>", "print()<left>", { buffer = true })
+	callback = function(ev)
+		vim.keymap.set("i", "<M-p>", "print()<left>", { buf = ev.buf })
 	end,
 })
 
 -- JavaScript / TypeScript / HTML
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "javascript", "typescript", "typescriptreact", "html" },
-	callback = function()
-		vim.keymap.set("i", "<C-c>", "console.log();<left><left>", { buffer = true })
+	callback = function(ev)
+		vim.keymap.set("i", "<C-c>", "console.log();<left><left>", { buf = ev.buf })
 	end,
 })
 

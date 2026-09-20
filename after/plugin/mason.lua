@@ -50,6 +50,30 @@ require("mason-lspconfig").setup({
 	},
 })
 
+local function hover()
+	vim.lsp.buf.hover({
+		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+		max_width = math.floor(vim.o.columns * 0.45),
+		max_height = math.floor(vim.o.lines * 0.35),
+		focusable = true,
+		title = " Hover ",
+		title_pos = "center",
+	})
+end
+
+local function diagnostic_jump(count)
+	return function()
+		vim.diagnostic.jump({
+			count = count,
+			on_jump = function(diagnostic, bufnr)
+				if diagnostic then
+					vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", border = "rounded" })
+				end
+			end,
+		})
+	end
+end
+
 -- global, dependable LSP keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
@@ -60,7 +84,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		local map = function(mode, lhs, rhs, desc)
-			vim.keymap.set(mode, lhs, rhs, { buffer = buf, silent = true, noremap = true, desc = desc })
+			vim.keymap.set(mode, lhs, rhs, { buf = buf, silent = true, noremap = true, desc = desc })
 		end
 
 		-- don’t use "<cmd>lua ...<CR>" strings; bind the functions
@@ -73,7 +97,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		if cap.hoverProvider then
-			map("n", "K", vim.lsp.buf.hover, "LSP: Hover")
+			map("n", "K", hover, "LSP: Hover")
 		end
 
 		if cap.referencesProvider then
@@ -89,12 +113,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		map("n", "gl", vim.diagnostic.open_float, "Diag: Line diagnostics")
-		map("n", "[d", function()
-			vim.diagnostic.goto_prev({ border = "rounded" })
-		end, "Diag: Prev")
-		map("n", "]d", function()
-			vim.diagnostic.goto_next({ border = "rounded" })
-		end, "Diag: Next")
+		map("n", "[d", diagnostic_jump(-1), "Diag: Prev")
+		map("n", "]d", diagnostic_jump(1), "Diag: Next")
 
 		-- Breadcrumbs: attach navic when server supports documentSymbol
 		local ok_navic, navic = pcall(require, "nvim-navic")
